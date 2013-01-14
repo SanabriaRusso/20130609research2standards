@@ -1,0 +1,10 @@
+*.aux
+*.bbl
+*.blg
+*diff*
+*~
+*.ps
+*.dvi
+*.log
+*.bak
+*.old
