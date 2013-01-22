@@ -466,13 +466,14 @@ The second groups involves the accurate estimation of the number of contenders t
 Two examples of this group are \cite{cali2000dti,lopez-toledo2006aoi}.
 This approach offers some throughput and fairness gains at the expense of increased implementation complexity.
 As the number of contenders is estimated relying on the number of collisions, the presence of channel errors further complicates the estimation.
-Furthermore, there is a fundamental trade-off between the accuracy and reaction time of the estimation.
+Furthermore, there is a fundamental trade-off between the accuracy and the reaction time of the estimation.
 
-The aforementioned solutions are not able to fairly share the medium with legacy devices.In fact, these proposals are, generally speaking, less aggressive than the currently implemented protocol.
-Consequently, in a shared network, the new stations would receive a smaller share of the available bandwidth in a mixed scenario.
+The aforementioned solutions are not able to fairly share the medium with legacy devices.
+In fact, these proposals are, generally speaking, less aggressive than the currently implemented protocol.
+Consequently, in a hypothetical mixed network in which the new and old protocols coexist, the new stations would receive a smaller share of the available bandwidth in a scenario.
 
 A more important limitation of the solutions exposed so far is that the throughput is bounded by that of CSMA/CA with optimal configuration \cite{cali2000dti,bianchi2000pai}.
-In this paper we focus on a third group of solutions that delivers throughput above the maximum attainable by CSMA/CA.
+In the present paper we focus on a third group of solutions that delivers throughput above the maximum attainable by CSMA/CA.
 
 This third group of solutions uses a deterministic backoff after successful transmissions to further reduce the chances of collisions.
 Under certain conditions, collision-free operation is reached.
@@ -487,7 +488,7 @@ The more realistic situation in multi-hop networks in which the time is not slot
 
 The same principles that we exploit to prevent collisions in WLANs can be used in other areas of radio resource management in wireless area networks \cite{duffy2011dcs,checco2012scs,checco2012lbc,khan2013aso}.
 
-In all the work cited so far, there is a limitation that the number of contenders should not exceed the value of the deterministic backoff used after successful transmissions.
+In all the previous work on collision-free operation in WLANs mentioned so far, there is the limitation that the number of contenders should not exceed the value of the deterministic backoff used after successful transmissions.
 If this value is exceeded, it is no longer possible to achieve collision-free operation.
 A first solution to solve this problem is presented in \cite{barcelo2011tcf}, but it requires the presence of a central entity (typically the access point) that instructs the other nodes to adjust the value of their deterministic backoff.
 
