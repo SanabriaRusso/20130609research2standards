@@ -352,7 +352,7 @@
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{Battling the MAC Bottleneck in IEEE 802.11 WLANs}
+\title{Evolution of CSMA Protocols fro the IEEE 802.11 Standard}
 
 
 % author names and affiliations
@@ -409,17 +409,12 @@ Fax: (888) 555--1212}}
 % make the title area
 \maketitle
 
+
 \begin{abstract}
 %\boldmath
-As the physical layer (PHY) data rates increase and wireless local area network (WLAN) frames become shorter, the medium access control (MAC) overheads account for a larger fraction of the total transmission time.
-This problem is known as the MAC bottleneck because it limits the throughput available to the user no matter how advanced PHY techniques are used.
-Current standardization efforts circumvent the problem by using aggregation.
-By aggregating multiple network packets in a single MAC layer frame, the MAC overhead per useful network layer bit is reduced.
-
-CSMA/ECA is an evolution of the well known CSMA/CA protocol that reduces the MAC contention overhead and therefore helps in battling the MAC bottleneck problem.
-The core idea is the use of a deterministic backoff after successful transmissions.
-In this paper we provide a survey of all the related contributions in the last years and describe the algorithm that can reach collision-free operation even for a large number of contenders.
-We present simulation results to quantify the potential performance gains.
+In this paper we present the requirements of candidate protocols to replace the pervasive CSMA/CA medium access control.
+We discuss the possibility of further preventing collisions and provide an overview of the related work.
+We specify protocols that are candidates of replacing CSMA/CA in pseudocode and use simulation to assess performance metrics such as throughput, fairness and collision probability.
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
 % This preserves the distinction between vectors and scalars. However,
@@ -454,17 +449,17 @@ IEEEtran.cls version 1.7 and later.
 % (should never be an issue)
 I wish you the best of success.
 
-\hfill mds
- 
-\hfill January 11, 2007
+A candidate to replace CSMA/CA should 
+\begin{itemize}
+  \item Provide performance advantages, either in the form of throughput or short term fairness.
+  \item Be backward compatible with current implementation.
+  \item Be simple a simple evolution implementation to ease the transition and reduce time to market (Optional but desirable).
+\end{itemize}
+\section{Related Work}
 
-\subsection{Subsection Heading Here}
-Subsection text here.
+\section{Enhanced CSMA}
 
-
-\subsubsection{Subsubsection Heading Here}
-Subsubsection text here.
-
+\section{Performance Evaluation}
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
