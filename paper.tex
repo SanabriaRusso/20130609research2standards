@@ -333,6 +333,7 @@
 % Read the url.sty source comments for usage information. Basically,
 % \url{my_url_here}.
 
+\usepackage[linesnumbered,noend]{algorithm2e}
 
 
 
@@ -495,6 +496,66 @@ A first solution to solve this problem is presented in \cite{barcelo2011tcf}, bu
 In the present paper, we study a completely distributed solution to accommodate a large number of contenders in a fair collision-free fashion.
 
 \section{Enhanced CSMA}
+
+\begin{algorithm}
+  %\tcc{Initialize $b$.}
+  $b \leftarrow \mathcal{U}[0,CW_{min}-1]$\;
+  \While{there is a packet to transmit}{
+    %\tcc{Initialize $a$.}
+    $a \leftarrow 0$ \;
+    \While{$a < A$}{
+      %\tcc{First, backoff.}
+      \While{$b>0$}{
+        wait 1 slot \;
+        $b \leftarrow b-1$ \;
+      }
+      Attempt transmission \;
+      \eIf{success}{
+        $b \leftarrow V$\;
+        break \;
+      }
+      {
+        %\tcc{If transmission fails.}
+        $a \leftarrow a+1$ \;
+        $b \leftarrow \mathcal{U}[0,\min (CW_{min}*2^a,CW_{max}) -1]$\;
+      }
+    }
+  }
+  \caption{CSMA/CA}
+  \label{alg:CSMA_ECA}
+\end{algorithm}
+
+
+\begin{algorithm}
+  %\tcc{Initialize $b$.}
+  $b \leftarrow \mathcal{U}[0,CW_{min}-1]$\;
+  \While{there is a packet to transmit}{
+    %\tcc{Initialize $a$.}
+    $a \leftarrow 0$ \;
+    \While{$a < A$}{
+      %\tcc{First, backoff.}
+      \While{$b>0$}{
+        wait 1 slot \;
+        $b \leftarrow b-1$ \;
+      }
+      Attempt transmission \;
+      \eIf{success}{
+        \tcc{Deterministic backoff.}
+        $b \leftarrow V$\;
+        break \;
+      }
+      {
+        %\tcc{If transmission fails.}
+        $a \leftarrow a+1$ \;
+        \tcc{fall to random backoff.}
+        $b \leftarrow \mathcal{U}[0,\min (CW_{min}*2^a,CW_{max}) -1]$\;
+      }
+    }
+  }
+  \caption{CSMA/ECA}
+  \label{alg:CSMA_ECA}
+\end{algorithm}
+
 
 \section{Performance Evaluation}
 
