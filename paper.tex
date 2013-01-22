@@ -333,7 +333,8 @@
 % Read the url.sty source comments for usage information. Basically,
 % \url{my_url_here}.
 
-\usepackage[linesnumbered,noend]{algorithm2e}
+%\usepackage[linesnumbered,noend]{algorithm2e}
+\usepackage[linesnumbered]{algorithm2e}
 
 
 
@@ -511,11 +512,12 @@ In the present paper, we study a completely distributed solution to accommodate 
       }
       Attempt transmission \;
       \eIf{success}{
-        $b \leftarrow V$\;
+        \tcc{Random backoff.}
+        $b \leftarrow \mathcal{U}[0,CW_{min}-1]$\;
         break \;
       }
       {
-        %\tcc{If transmission fails.}
+        \tcc{Random backoff.}
         $a \leftarrow a+1$ \;
         $b \leftarrow \mathcal{U}[0,\min (CW_{min}*2^a,CW_{max}) -1]$\;
       }
