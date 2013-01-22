@@ -475,9 +475,23 @@ A more important limitation of the solutions exposed so far is that the throughp
 In this paper we focus on a third group of solutions that delivers throughput above the maximum attainable by CSMA/CA.
 
 This third group of solutions uses a deterministic backoff after successful transmissions to further reduce the chances of collisions.
+Under certain conditions, collision-free operation is reached.
 It was introduced in \cite{barcelo2008lba} and a more detailed analysis that includes both saturated and non-saturated conditions is presented in \cite{bellalta2009vtc}.
-analyzed in depth in \cite{he2009srb}.
+A more in-depth study is carried out in \cite{he2009srb}, including realistic elements such as clear channel assessment errors.
+Different aspects of fairness are addressed in \cite{he2009srb,barcelo2010fcc,fang2011dlm}.
+The performance in realistic channels taking into account the Auto Rate Fallback mechanism is evaluated \cite{martorell2012pec,martorell2012tfl}.
 
+Even though initial research efforts where focused on the WLAN collision problem, more recent papers try to extend the idea to multi-hop networks.
+In \cite{hui2011epp}, the multi-hop slotted case explored.
+The more realistic situation in multi-hop networks in which the time is not slotted is studied in \cite{barcelo2013dcc}.
+
+The same principles that we exploit to prevent collisions in WLANs can be used in other areas of radio resource management in wireless area networks \cite{duffy2011dcs,checco2012scs,checco2012lbc,khan2013aso}.
+
+In all the work cited so far, there is a limitation that the number of contenders should not exceed the value of the deterministic backoff used after successful transmissions.
+If this value is exceeded, it is no longer possible to achieve collision-free operation.
+A first solution to solve this problem is presented in \cite{barcelo2011tcf}, but it requires the presence of a central entity (typically the access point) that instructs the other nodes to adjust the value of their deterministic backoff.
+
+In the present paper, we study a completely distributed solution to accommodate a large number of contenders in a fair collision-free fashion.
 
 \section{Enhanced CSMA}
 
