@@ -1,13 +1,14 @@
 
-%% bare_jrnl.tex
+%% bare_conf.tex
 %% V1.3
 %% 2007/01/11
 %% by Michael Shell
-%% see http://www.michaelshell.org/
+%% See:
+%% http://www.michaelshell.org/
 %% for current contact information.
 %%
 %% This is a skeleton file demonstrating the use of IEEEtran.cls
-%% (requires IEEEtran.cls version 1.7 or later) with an IEEE journal paper.
+%% (requires IEEEtran.cls version 1.7 or later) with an IEEE conference paper.
 %%
 %% Support sites:
 %% http://www.michaelshell.org/tex/ieeetran/
@@ -15,21 +16,11 @@
 %% and
 %% http://www.ieee.org/
 
-
-
-% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
-% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
-% *** with production work. IEEE's font choices can trigger bugs that do  ***
-% *** not appear when using other class files.                            ***
-% The testflow support page is at:
-% http://www.michaelshell.org/tex/testflow/
-
-
 %%*************************************************************************
 %% Legal Notice:
 %% This code is offered as-is without any warranty either expressed or
 %% implied; without even the implied warranty of MERCHANTABILITY or
-%% FITNESS FOR A PARTICULAR PURPOSE!
+%% FITNESS FOR A PARTICULAR PURPOSE! 
 %% User assumes all risk.
 %% In no event shall IEEE or any contributor to this code be liable for
 %% any damages or losses, including, but not limited to, incidental,
@@ -52,6 +43,15 @@
 %%                    bare_conf.tex, bare_jrnl.tex, bare_jrnl_compsoc.tex
 %%*************************************************************************
 
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. IEEE's font choices can trigger bugs that do  ***
+% *** not appear when using other class files.                            ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+
 % Note that the a4paper option is mainly intended so that authors in
 % countries using A4 can easily print to A4 and see how their papers will
 % look in print - the typesetting of the document will not typically be
@@ -63,80 +63,12 @@
 % should be used if it is desired that the figures are to be displayed in
 % draft mode.
 %
-\documentclass[journal]{IEEEtran}
-
-\newtheorem{definition}{Definition}
-\newtheorem{proposition}{Proposition}
-\newtheorem{theorem}{Theorem}
-\newtheorem{remark}{Remark}
-
-% to add comments in different colors (added by Azadeh)
-\usepackage[usenames]{color}
-\usepackage{lscape}
-\usepackage{soul}
-\newcommand{\blue}[1]{{\color{blue} #1}}
-\newcommand{\red}[1]{{\color{red} #1}}
-\newcommand{\black}[1]{{\color{black} #1}}
-
-\newcommand{\Az}[1]{{\color{blue}{#1}}}
-%\newcommand{\AzCom}[1]{{\it \color{magenta} [#1]}}
-\newcommand{\AzCom}[1]{}
-%\newcommand{\AzDel}[1]{{\color{red} \st{#1}}}
-%\newcommand{\AzDel}[1]{{\color{Gray}{\{#1\}}}}
-\newcommand{\AzDel}[1]{}
-
-\newdimen\snellbaselineskip
-\newdimen\snellskip
-\snellskip=1.5ex
-\snellbaselineskip=\baselineskip
-\def\srule{\omit\kern.5em\vrule\kern-.5em}
-\newbox\bigstrutbox
-\setbox\bigstrutbox=\hbox{\vrule height14.5pt depth9.5pt width0pt}
-\def\bigstrut{\relax\ifmmode\copy\bigstrutbox\else\unhcopy\bigstrutbox\fi}
-\def\middlehrule#1#2{\noalign{\kern-\snellbaselineskip\kern\snellskip}
-&\multispan#1\strut\hrulefill
-&\omit\hbox to.5em{\hrulefill}\vrule
-height \snellskip\kern-.5em&\multispan#2\hrulefill\cr}
-
-
-\makeatletter
-\def\bordermatrix#1{\begingroup \m@th
-  \@tempdima 8.75\p@
-  \setbox\z@\vbox{%
-    \def\cr{\crcr\noalign{\kern2\p@\global\let\cr\endline}}%
-    \ialign{$##$\hfil\kern2\p@\kern\@tempdima&\thinspace\hfil$##$\hfil
-      &&\quad\hfil$##$\hfil\crcr
-      \omit\strut\hfil\crcr\noalign{\kern-\snellbaselineskip}%
-      #1\crcr\omit\strut\cr}}%
-  \setbox\tw@\vbox{\unvcopy\z@\global\setbox\@ne\lastbox}%
-  \setbox\tw@\hbox{\unhbox\@ne\unskip\global\setbox\@ne\lastbox}%
-  \setbox\tw@\hbox{$\kern\wd\@ne\kern-\@tempdima\left(\kern-\wd\@ne
-    \global\setbox\@ne\vbox{\box\@ne\kern2\p@}%
-    \vcenter{\kern-\ht\@ne\unvbox\z@\kern-\snellbaselineskip}\,\right)$}%
-  \null\;\vbox{\kern\ht\@ne\box\tw@}\endgroup}
-\makeatletter
-
-\makeatletter
-\def\bordermatrix#1{\begingroup \m@th
-  \@tempdima 8.75\p@
-  \setbox\z@\vbox{%
-    \def\cr{\crcr\noalign{\kern2\p@\global\let\cr\endline}}%
-    \ialign{$##$\hfil\kern2\p@\kern\@tempdima&\thinspace\hfil$##$\hfil
-      &&\quad\hfil$##$\hfil\crcr
-      \omit\strut\hfil\crcr\noalign{\kern-\snellbaselineskip}%
-      #1\crcr\omit\strut\cr}}%
-  \setbox\tw@\vbox{\unvcopy\z@\global\setbox\@ne\lastbox}%
-  \setbox\tw@\hbox{\unhbox\@ne\unskip\global\setbox\@ne\lastbox}%
-  \setbox\tw@\hbox{$\kern\wd\@ne\kern-\@tempdima\left(\kern-\wd\@ne
-    \global\setbox\@ne\vbox{\box\@ne\kern2\p@}%
-    \vcenter{\kern-\ht\@ne\unvbox\z@\kern-\snellbaselineskip}\,\right)$}%
-  \null\;\vbox{\kern\ht\@ne\box\tw@}\endgroup}
-\makeatletter
-
+\documentclass[conference]{IEEEtran}
+% Add the compsoc option for Computer Society conferences.
 %
 % If IEEEtran.cls has not been installed into the LaTeX system files,
 % manually specify the path to it like:
-% \documentclass[journal]{../sty/IEEEtran}
+% \documentclass[conference]{../sty/IEEEtran}
 
 
 
@@ -171,7 +103,7 @@ height \snellskip\kern-.5em&\multispan#2\hrulefill\cr}
 
 % *** CITATION PACKAGES ***
 %
-\usepackage{cite}
+%\usepackage{cite}
 % cite.sty was written by Donald Arseneau
 % V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
 % \cite{} output to follow that of IEEE. Loading the cite package will
@@ -205,17 +137,17 @@ height \snellskip\kern-.5em&\multispan#2\hrulefill\cr}
   % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
   % will default to the driver specified in the system graphics.cfg if no
   % driver is specified.
-  \usepackage[dvips]{graphicx}
+  % \usepackage[dvips]{graphicx}
   % declare the path(s) where your graphic files are
   % \graphicspath{{../eps/}}
   % and their extensions so you won't have to specify these with
   % every instance of \includegraphics
-  \DeclareGraphicsExtensions{.eps}
+  % \DeclareGraphicsExtensions{.eps}
 \fi
 % graphicx was written by David Carlisle and Sebastian Rahtz. It is
 % required if you want graphics, photos, etc. graphicx.sty is already
 % installed on most LaTeX systems. The latest version and documentation can
-% be obtained at:
+% be obtained at: 
 % http://www.ctan.org/tex-archive/macros/latex/required/graphics/
 % Another good source of documentation is "Using Imported Graphics in
 % LaTeX2e" by Keith Reckdahl which can be found as epslatex.ps or
@@ -238,7 +170,7 @@ height \snellskip\kern-.5em&\multispan#2\hrulefill\cr}
 
 % *** MATH PACKAGES ***
 %
-\usepackage[cmex10]{amsmath}
+%\usepackage[cmex10]{amsmath}
 % A popular package from the American Mathematical Society that provides
 % many useful and powerful commands for dealing with mathematics. If using
 % it, be sure to load this package with the cmex10 option to ensure that
@@ -255,8 +187,6 @@ height \snellskip\kern-.5em&\multispan#2\hrulefill\cr}
 % version and documentation can be obtained at:
 % http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
 
-\usepackage{amssymb}
-\usepackage{amsfonts}
 
 
 
@@ -342,7 +272,7 @@ height \snellskip\kern-.5em&\multispan#2\hrulefill\cr}
 % IEEEtran.cls handling of captions and this will result in nonIEEE style
 % figure/table captions. To prevent this problem, be sure and preload
 % caption.sty with its "caption=false" package option. This is will preserve
-% IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later
+% IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later 
 % (recommended due to many improvements over 1.2) of subfig.sty supports
 % the caption=false option directly:
 %\usepackage[caption=false,font=footnotesize]{subfig}
@@ -390,54 +320,12 @@ height \snellskip\kern-.5em&\multispan#2\hrulefill\cr}
 % not format its papers in such ways.
 
 
-%\ifCLASSOPTIONcaptionsoff
-%  \usepackage[nomarkers]{endfloat}
-% \let\MYoriglatexcaption\caption
-% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
-%\fi
-% endfloat.sty was written by James Darrell McCauley and Jeff Goldberg.
-% This package may be useful when used in conjunction with IEEEtran.cls'
-% captionsoff option. Some IEEE journals/societies require that submissions
-% have lists of figures/tables at the end of the paper and that
-% figures/tables without any captions are placed on a page by themselves at
-% the end of the document. If needed, the draftcls IEEEtran class option or
-% \CLASSINPUTbaselinestretch interface can be used to increase the line
-% spacing as well. Be sure and use the nomarkers option of endfloat to
-% prevent endfloat from "marking" where the figures would have been placed
-% in the text. The two hack lines of code above are a slight modification of
-% that suggested by in the endfloat docs (section 8.3.1) to ensure that
-% the full captions always appear in the list of figures/tables - even if
-% the user used the short optional argument of \caption[]{}.
-% IEEE papers do not typically make use of \caption[]'s optional argument,
-% so this should not be an issue. A similar trick can be used to disable
-% captions of packages such as subfig.sty that lack options to turn off
-% the subcaptions:
-% For subfig.sty:
-% \let\MYorigsubfloat\subfloat
-% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
-% For subfigure.sty:
-% \let\MYorigsubfigure\subfigure
-% \renewcommand{\subfigure}[2][\relax]{\MYorigsubfigure[]{#2}}
-% However, the above trick will not work if both optional arguments of
-% the \subfloat/subfig command are used. Furthermore, there needs to be a
-% description of each subfigure *somewhere* and endfloat does not add
-% subfigure captions to its list of figures. Thus, the best approach is to
-% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
-% and instead reference/explain all the subfigures within the main caption.
-% The latest version of endfloat.sty and its documentation can obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/endfloat/
-%
-% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
-% later in the document, say, to conditionally put the References on a
-% page by themselves.
-
-
 
 
 
 % *** PDF, URL AND HYPERLINK PACKAGES ***
 %
-\usepackage{url}
+%\usepackage{url}
 % url.sty was written by Donald Arseneau. It provides better support for
 % handling and breaking URLs. url.sty is already installed on most LaTeX
 % systems. The latest version can be obtained at:
@@ -445,7 +333,7 @@ height \snellskip\kern-.5em&\multispan#2\hrulefill\cr}
 % Read the url.sty source comments for usage information. Basically,
 % \url{my_url_here}.
 
-\usepackage{psfrag}
+
 
 
 
@@ -457,10 +345,6 @@ height \snellskip\kern-.5em&\multispan#2\hrulefill\cr}
 
 
 % correct bad hyphenation here
-
-\def\Abf{{\mathbf{A}}}
-\def\Pbf{{\mathbf{P}}}
-\newcommand{\pr}[1]{\Pr \left\{#1\right\}}
 \hyphenation{op-tical net-works semi-conduc-tor}
 
 
@@ -468,68 +352,51 @@ height \snellskip\kern-.5em&\multispan#2\hrulefill\cr}
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{Battling the MAC Bottleneck in IEEE 802.11 Networks}
-%
-%
-% author names and IEEE memberships
-% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
-% a structure at a ~ so this keeps an author's name from being broken across
-% two lines.
-% use \thanks{} to gain access to the first footnote area
-% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
-% was not built to handle multiple paragraphs
-%
-
-\author{First~Author, %~\IEEEmembership{Member,~IEEE,}
-        Second~Author, %~\IEEEmembership{Fellow,~OSA,}
-        Third~Author, \IEEEmembership{Member, IEEE,}
-        Fourth~Author, %~\IEEEmembership{Fellow,~OSA,}
-        and~Last~Author,~\IEEEmembership{Senior~Member,~IEEE}% <-this % stops a space
-\thanks{The authors are with Universitat Pompeu Fabra.
-Roc Boronat 138, 08018 Barcelona, Catalunya, Spain.
-E-mail: jaume.barcelo@upf.edu
-}
-}
-
-% note the % following the last \IEEEmembership and also \thanks -
-% these prevent an unwanted space from occurring between the last author name
-% and the end of the author line. i.e., if you had this:
-%
-% \author{....lastname \thanks{...} \thanks{...} }
-%                     ^------------^------------^----Do not want these spaces!
-%
-% a space would be appended to the last name and could cause every name on that
-% line to be shifted left slightly. This is one of those "LaTeX things". For
-% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
-% "AB" then you have to do: "\textbf{A}\textbf{B}"
-% \thanks is no different in this regard, so shield the last } of each \thanks
-% that ends a line with a % and do not let a space in before the next \thanks.
-% Spaces after \IEEEmembership other than the last one are OK (and needed) as
-% you are supposed to have spaces between the names. For what it is worth,
-% this is a minor point as most people would not even notice if the said evil
-% space somehow managed to creep in.
+\title{Battling the MAC Bottleneck in IEEE 802.11 WLANs}
 
 
+% author names and affiliations
+% use a multiple column layout for up to three different
+% affiliations
+\author{\IEEEauthorblockN{Michael Shell}
+\IEEEauthorblockA{School of Electrical and\\Computer Engineering\\
+Georgia Institute of Technology\\
+Atlanta, Georgia 30332--0250\\
+Email: http://www.michaelshell.org/contact.html}
+\and
+\IEEEauthorblockN{Homer Simpson}
+\IEEEauthorblockA{Twentieth Century Fox\\
+Springfield, USA\\
+Email: homer@thesimpsons.com}
+\and
+\IEEEauthorblockN{James Kirk\\ and Montgomery Scott}
+\IEEEauthorblockA{Starfleet Academy\\
+San Francisco, California 96678-2391\\
+Telephone: (800) 555--1212\\
+Fax: (888) 555--1212}}
 
-% The paper headers
-\markboth{Journal of \LaTeX\ Class Files,~Vol.~6, No.~1, January~2007}%
-{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for Journals}
-% The only time the second header will appear is for the odd numbered pages
-% after the title page when using the twoside option.
-%
-% *** Note that you probably will NOT want to include the author's ***
-% *** name in the headers of peer review papers.                   ***
-% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
-% you desire.
+% conference papers do not typically use \thanks and this command
+% is locked out in conference mode. If really needed, such as for
+% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
+% after \documentclass
 
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
+% 
+%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
+%Homer Simpson\IEEEauthorrefmark{2},
+%James Kirk\IEEEauthorrefmark{3}, 
+%Montgomery Scott\IEEEauthorrefmark{3} and
+%Eldon Tyrell\IEEEauthorrefmark{4}}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+%Georgia Institute of Technology,
+%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
+%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
 
-
-
-% If you want to put a publisher's ID mark on the page you can do it like
-% this:
-%\IEEEpubid{0000--0000/00\$00.00~\copyright~2007 IEEE}
-% Remember, if you use this you must call \IEEEpubidadjcol in the second
-% column for its text to clear the IEEEpubid mark.
 
 
 
@@ -542,9 +409,8 @@ E-mail: jaume.barcelo@upf.edu
 % make the title area
 \maketitle
 
-
 \begin{abstract}
-\boldmath
+%\boldmath
 As the physical layer (PHY) data rates increase and wireless local area network (WLAN) frames become shorter, the medium access control (MAC) overheads account for a larger fraction of the total transmission time.
 This problem is known as the MAC bottleneck because it limits the throughput available to the user no matter how advanced PHY techniques are used.
 Current standardization efforts circumvent the problem by using aggregation.
@@ -554,23 +420,15 @@ CSMA/ECA is an evolution of the well known CSMA/CA protocol that reduces the MAC
 The core idea is the use of a deterministic backoff after successful transmissions.
 In this paper we provide a survey of all the related contributions in the last years and describe the algorithm that can reach collision-free operation even for a large number of contenders.
 We present simulation results to quantify the potential performance gains.
-
-
-
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
 % This preserves the distinction between vectors and scalars. However,
-% if the journal you are submitting to favors bold math in the abstract,
+% if the conference you are submitting to favors bold math in the abstract,
 % then you can use LaTeX's standard command \boldmath at the very start
-% of the abstract to achieve this. Many IEEE journals frown on math
-% in the abstract anyway.
+% of the abstract to achieve this. Many IEEE journals/conferences frown on
+% math in the abstract anyway.
 
-% Note that keywords are not normally used for peerreview papers.
-\begin{IEEEkeywords}
-Medium Access Control, decentralized constraint satisfaction solver, learning MAC protocol
-\end{IEEEkeywords}
-
-
+% no keywords
 
 
 
@@ -588,106 +446,126 @@ Medium Access Control, decentralized constraint satisfaction solver, learning MA
 
 
 \section{Introduction}
-% The very first letter is a 2 line initial drop letter followed
-% by the rest of the first word in caps.
-%
-% form to use if the first word consists of a single letter:
-% \IEEEPARstart{A}{demo} file is ....
-%
-% form to use if you need the single drop letter followed by
-% normal text (unknown if ever used by IEEE):
-% \IEEEPARstart{A}{}demo file is ....
-%
-% Some journals put the first two words in caps:
-% \IEEEPARstart{T}{his demo} file is ....
-%
-% Here we have the typical use of a "T" for an initial drop letter
-% and "HIS" in caps to complete the first word.
-
-% \IEEEPARstart{I}{n} this paper we discuss a family of protocols that can be used for radio resource assignment in wireless networks.
-% The problem of assigning resources in a distributed fashion is defined as a Decentralized Constraint Satisfaction (DCS) problem \cite{duffy2011dcs}.
-% We consider a particular solver for this family of problems that works iteratively, in several rounds, to find a solution to the problem.
-
-% The solver performs a stochastic search until it converges to a solution.
+% no \IEEEPARstart
+This demo file is intended to serve as a ``starter file''
+for IEEE conference papers produced under \LaTeX\ using
+IEEEtran.cls version 1.7 and later.
 % You must have at least 2 lines in the paragraph with the drop letter
 % (should never be an issue)
+I wish you the best of success.
 
-\IEEEPARstart{T}{his} is the introduction.
-Blah blaah blahlah bababablah blalalah.
-Blah blaah blahlah bababablah blalalah.
-Blah blaah blahlah bababablah blalalah.
+\hfill mds
+ 
+\hfill January 11, 2007
 
-%\begin{figure}
-%  \centering
-%  \includegraphics[width=2.5in]{figures/csma_eca_compact}
-%  \caption{CSMA/ECA contention}
-%  \label{fig:csma_eca_compact}
-%\end{figure}
+\subsection{Subsection Heading Here}
+Subsection text here.
 
 
+\subsubsection{Subsubsection Heading Here}
+Subsubsection text here.
 
-% if have a single appendix:
-%\appendix[Proof of the Zonklar Equations]
-% or
-%\appendix  % for no appendix heading
-% do not use \section anymore after \appendix, only \section*
-% is possibly needed
 
-% use appendices with more than one appendix
-% then use \section to start each appendix
-% you must declare a \section before using any
-% \subsection or using \label (\appendices by itself
-% starts a section numbered zero.)
+% An example of a floating figure using the graphicx package.
+% Note that \label must occur AFTER (or within) \caption.
+% For figures, \caption should occur after the \includegraphics.
+% Note that IEEEtran v1.7 and later has special internal code that
+% is designed to preserve the operation of \label within \caption
+% even when the captionsoff option is in effect. However, because
+% of issues like this, it may be the safest practice to put all your
+% \label just after \caption rather than within \caption{}.
 %
-
-
-%\appendices
-%\section{Generalized Inclusion Exclusion Illustration}
-%\label{app:incl-excl-thm}
-%\label{app:theorem}
-%We offer an example of the counting problem in (\ref{eq:Pij})  in which we are interested in computing the probability that exactly $delta$ among the $N$ stations succeed.
+% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+% option should be used if it is desired that the figures are to be
+% displayed while in draft mode.
 %
-%\begin{figure}
-%\psfrag{A1}[cc][cc]{$A_1$}
-%\psfrag{A2}[cc][cc]{$A_2$}
-%\psfrag{A3}[cc][cc]{$A_3$}
+%\begin{figure}[!t]
 %\centering
-%\includegraphics[height=3cm]{figures/counting}
-%\caption{Illustration of the counting problem}
-%\label{fig:counting}
+%\includegraphics[width=2.5in]{myfigure}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+%\caption{Simulation Results}
+%\label{fig_sim}
 %\end{figure}
+
+% Note that IEEE typically puts floats only at the top, even when this
+% results in a large percentage of a column being occupied by floats.
+
+
+% An example of a double column floating figure using two subfigures.
+% (The subfig.sty package must be loaded for this to work.)
+% The subfigure \label commands are set within each subfloat command, the
+% \label for the overall figure must come after \caption.
+% \hfil must be used as a separator to get equal spacing.
+% The subfigure.sty package works much the same way, except \subfigure is
+% used instead of \subfloat.
 %
-%To illustrate the underlying idea we will use a simple example involving $N=3$ different stations choosing among $B=4$ different slots.
-%We assume that the number of stations deterministically choosing its transmission slot is $d=0$ and we are interested in computing the probability that exactly $\delta=1$ station succeeds.
+%\begin{figure*}[!t]
+%\centerline{\subfloat[Case I]\includegraphics[width=2.5in]{subfigcase1}%
+%\label{fig_first_case}}
+%\hfil
+%\subfloat[Case II]{\includegraphics[width=2.5in]{subfigcase2}%
+%\label{fig_second_case}}}
+%\caption{Simulation results}
+%\label{fig_sim}
+%\end{figure*}
 %
-%There are a total of $B^N=4^3$ outcomes that are represented as black dots in Fig.~\ref{fig:counting}.
-%Each outcome is equally likely with probability $1/64$.
-%The figure also shows three events $A_1$, $A_2$ and $A_3$.
-%The first event, $A_1$ represents the outcomes in which the first station succeeds.
-%Similarly, the other two events, $A_2$ and $A_3$, represent the outcomes in which station 2 and 3 succeed, respectively.
-%These sets are partially overlapping.
-%Note also that it is impossible that two stations succeed while the third station collides.
+% Note that often IEEE papers with subfigures do not employ subfigure
+% captions (using the optional argument to \subfloat), but instead will
+% reference/describe all of them (a), (b), etc., within the main caption.
+
+
+% An example of a floating table. Note that, for IEEE style tables, the 
+% \caption command should come BEFORE the table. Table text will default to
+% \footnotesize as IEEE normally uses this smaller font for tables.
+% The \label must come after \caption as always.
 %
-%If we want to compute the probability that exactly one station succeeds, we have to count the outcomes that belong to either $A_1$, $A_2$ or $A_3$ and are not part of the intersections.
-%This is $|A_1|+|A_2|+|A_3|-2(|A_1\cap A_2|+|A_1\cap A_3|+|A_2\cap A_3|)+3(|A_1\cap A_2\cap A_3|)$.
-%In our paper we will use the intermediate values
-% $S(1)=P(A_1)+P(A_2)+P(A_3)$,
-% $S(2)=P(A_1\cap A_2)+P(A_1\cap A_3)+P(A_2\cap A_3)$, and $S(3)=P(A_1\cap A_2\cap A_3)$.
-% The probability that exactly one station succeeds is finally computed  as $S(1)-2S(2)+3S(3)$.
+%\begin{table}[!t]
+%% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+%\caption{An Example of a Table}
+%\label{table_example}
+%\centering
+%% Some packages, such as MDW tools, offer better commands for making tables
+%% than the plain LaTeX2e tabular which is used here.
+%\begin{tabular}{|c||c|}
+%\hline
+%One & Two\\
+%\hline
+%Three & Four\\
+%\hline
+%\end{tabular}
+%\end{table}
+
+
+% Note that IEEE does not put floats in the very first column - or typically
+% anywhere on the first page for that matter. Also, in-text middle ("here")
+% positioning is not used. Most IEEE journals/conferences use top floats
+% exclusively. Note that, LaTeX2e, unlike IEEE journals/conferences, places
+% footnotes above bottom floats. This can be corrected via the \fnbelowfloat
+% command of the stfloats package.
+
+
+
+\section{Conclusion}
+The conclusion goes here.
+
+
+
+
+% conference papers do not normally have an appendix
 
 
 % use section* for acknowledgement
-%\section*{Acknowledgment}
+\section*{Acknowledgment}
 
 
-%The authors would like to thank ...
+The authors would like to thank...
 
 
-% Can use something like this to put references on a page
-% by themselves when using endfloat and the captionsoff option.
-\ifCLASSOPTIONcaptionsoff
-  \newpage
-\fi
 
 
 
@@ -706,63 +584,25 @@ Blah blaah blahlah bababablah blalalah.
 % http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
 % The IEEEtran BibTeX style support page is at:
 % http://www.michaelshell.org/tex/ieeetran/bibtex/
-\bibliographystyle{IEEEtran}
+%\bibliographystyle{IEEEtran}
 % argument is your BibTeX string definitions and bibliography database(s)
-\bibliography{IEEEabrv,my_bib}
+%\bibliography{IEEEabrv,../bib/paper}
 %
 % <OR> manually copy in the resultant .bbl file
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
-%\begin{thebibliography}{1}
+\begin{thebibliography}{1}
 
-%\bibitem{IEEEhowto:kopka}
-%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+\bibitem{IEEEhowto:kopka}
+H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
 
-%\end{thebibliography}
+\end{thebibliography}
 
-% biography section
-%
-% If you have an EPS/PDF photo (graphicx package needed) extra braces are
-% needed around the contents of the optional argument to biography to prevent
-% the LaTeX parser from getting confused when it sees the complicated
-% \includegraphics command within an optional argument. (You could create
-% your own custom macro containing the \includegraphics command to make things
-% simpler here.)
-%\begin{biography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
-% or if you just want to reserve a space for a photo:
-
-%\begin{IEEEbiography}{Michael Shell}
-%Biography text here.
-%\end{IEEEbiography}
-%
-%% if you will not have a photo at all:
-%\begin{IEEEbiographynophoto}{John Doe}
-%Biography text here.
-%\end{IEEEbiographynophoto}
-%
-%% insert where needed to balance the two columns on the last page with
-%% biographies
-%%\newpage
-%
-%\begin{IEEEbiographynophoto}{Jane Doe}
-%Biography text here.
-%\end{IEEEbiographynophoto}
-
-% You can push biographies down or up by placing
-% a \vfill before or after them. The appropriate
-% use of \vfill depends on what kind of text is
-% on the last page and whether or not the columns
-% are being equalized.
-
-%\vfill
-
-% Can be used to pull up biographies so that the bottom of the last one
-% is flush with the other column.
-%\enlargethispage{-5in}
 
 
 
 % that's all folks
 \end{document}
+
 
