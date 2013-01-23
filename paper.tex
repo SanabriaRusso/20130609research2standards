@@ -519,7 +519,7 @@ In the present paper, we study a completely distributed solution to accommodate 
       {
         \tcc{Random backoff.}
         $a \leftarrow a+1$ \;
-        $b \leftarrow \mathcal{U}[0,\min (\rm{CW}_{min}*2^a,\rm{CW}_{max}) -1]$\;
+        $b \leftarrow \mathcal{U}[0, \rm{CW}_{min} 2^{\min (a,m)} -1]$\;
       }
     }
   }
@@ -550,7 +550,7 @@ In the present paper, we study a completely distributed solution to accommodate 
         %\tcc{If transmission fails.}
         $a \leftarrow a+1$ \;
         \tcc{fall to random backoff.}
-        $b \leftarrow \mathcal{U}[0,\min (\rm{CW}_{min}*2^a,\rm{CW}_{max}) -1]$\;
+        $b \leftarrow \mathcal{U}[0, \rm{CW}_{min} 2^{\min (a,m)} -1]$\;
       }
     }
   }
@@ -582,12 +582,7 @@ In the present paper, we study a completely distributed solution to accommodate 
         %\tcc{If transmission fails.}
         $a \leftarrow a+1$ \;
         \tcc{fall to random backoff.}
-        $b \leftarrow \mathcal{U}[0,\min (\rm{CW}_{min}*2^a,\rm{CW}_{max}) -1]$\;
-        \If{$a > m$}
-        {
-          Discard packet \;
-          break \;
-        }
+        $b \leftarrow \mathcal{U}[0, \rm{CW}_{min} 2^{\min (a,m)} -1]$\;
       }
     }
   }
@@ -610,7 +605,7 @@ In the present paper, we study a completely distributed solution to accommodate 
         $b \leftarrow b-1$ \;
       }
       \tcc{Fair-share: $2^a$ packets are transmitted.}
-      Attempt aggregate transmission of $2^a$ packets\;
+      Attempt aggregate transmission of $2^{min (a,m)}$ packets\;
       \eIf{success}{
         \tcc{Deterministic backoff.}
         $b \leftarrow \rm{CW}_{min}/2$\;
@@ -620,12 +615,12 @@ In the present paper, we study a completely distributed solution to accommodate 
         %\tcc{If transmission fails.}
         $a \leftarrow a+1$ \;
         \tcc{fall to random backoff.}
-        $b \leftarrow \mathcal{U}[0,\min (\rm{CW}_{min}*2^a,\rm{CW}_{max}) -1]$\;
+        $b \leftarrow \mathcal{U}[0, \rm{CW}_{min} 2^{\min (a,m)} -1]$\;
       }
     }
   }
   \caption{CSMA/ECA with hysteresis and fair-share}
-  \label{alg:CSMA_ECA_hist}
+  \label{alg:CSMA_ECA_hist_fair}
 \end{algorithm}
 
 
