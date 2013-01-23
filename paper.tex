@@ -504,7 +504,7 @@ In the present paper, we study a completely distributed solution to accommodate 
   $b \leftarrow \mathcal{U}[0,\rm{CW}_{min}-1]$\;
   \While{there is a packet to transmit}{
     %\tcc{Initialize $a$.}
-    \While{$r < R$}{
+    \Repeat{$r = R$}{
       %\tcc{First, backoff.}
       \While{$b>0$}{
         wait 1 slot \;
@@ -517,20 +517,15 @@ In the present paper, we study a completely distributed solution to accommodate 
         break \;
       }
       {
-        \eIf{$r<R$}
-        {
-          \tcc{Random backoff.}
-          $r \leftarrow r+1$ \;
-          $b \leftarrow \mathcal{U}[0, \rm{CW}_{min} 2^{\min (a,m)} -1]$\;
-        }
-        {
-          \tcc{Discard packet and get ready for next one}  
-          $r \leftarrow 0$ \;
-          $b \leftarrow \mathcal{U}[0,\rm{CW}_{min}-1]$\;
-        }
-
+        \tcc{Random backoff.}
+        $r \leftarrow r+1$ \;
+        $b \leftarrow \mathcal{U}[0, \rm{CW}_{min} 2^{\min (a,m)} -1]$\;
       }
     }
+    Discard packet\;
+    \tcc{And get ready for next one}  
+    $r \leftarrow 0$ \;
+    $b \leftarrow \mathcal{U}[0,\rm{CW}_{min}-1]$\;
   }
   \caption{CSMA/CA}
   \label{alg:CSMA_ECA}
