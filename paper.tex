@@ -334,7 +334,7 @@
 % \url{my_url_here}.
 
 %\usepackage[linesnumbered,noend]{algorithm2e}
-\usepackage[linesnumbered]{algorithm2e}
+\usepackage[linesnumbered,vlined]{algorithm2e}
 
 
 
@@ -500,11 +500,11 @@ In the present paper, we study a completely distributed solution to accommodate 
 
 \begin{algorithm}
   %\tcc{Initialize $b$.}
+  $r \leftarrow 0$ \;
   $b \leftarrow \mathcal{U}[0,\rm{CW}_{min}-1]$\;
   \While{there is a packet to transmit}{
     %\tcc{Initialize $a$.}
-    $a \leftarrow 0$ \;
-    \While{$a < A$}{
+    \While{$r < R$}{
       %\tcc{First, backoff.}
       \While{$b>0$}{
         wait 1 slot \;
@@ -517,110 +517,23 @@ In the present paper, we study a completely distributed solution to accommodate 
         break \;
       }
       {
-        \tcc{Random backoff.}
-        $a \leftarrow a+1$ \;
-        $b \leftarrow \mathcal{U}[0, \rm{CW}_{min} 2^{\min (a,m)} -1]$\;
+        \eIf{$r<R$}
+        {
+          \tcc{Random backoff.}
+          $r \leftarrow r+1$ \;
+          $b \leftarrow \mathcal{U}[0, \rm{CW}_{min} 2^{\min (a,m)} -1]$\;
+        }
+        {
+          \tcc{Discard packet and get ready for next one}  
+          $r \leftarrow 0$ \;
+          $b \leftarrow \mathcal{U}[0,\rm{CW}_{min}-1]$\;
+        }
+
       }
     }
   }
   \caption{CSMA/CA}
   \label{alg:CSMA_ECA}
-\end{algorithm}
-
-
-\begin{algorithm}
-  %\tcc{Initialize $b$.}
-  $b \leftarrow \mathcal{U}[0,\rm{CW}_{min}-1]$\;
-  \While{there is a packet to transmit}{
-    %\tcc{Initialize $a$.}
-    $a \leftarrow 0$ \;
-    \While{$a < A$}{
-      %\tcc{First, backoff.}
-      \While{$b>0$}{
-        wait 1 slot \;
-        $b \leftarrow b-1$ \;
-      }
-      Attempt transmission \;
-      \eIf{success}{
-        \tcc{Deterministic backoff.}
-        $b \leftarrow \rm{CW}_{min}/2$\;
-        break \;
-      }
-      {
-        %\tcc{If transmission fails.}
-        $a \leftarrow a+1$ \;
-        \tcc{fall to random backoff.}
-        $b \leftarrow \mathcal{U}[0, \rm{CW}_{min} 2^{\min (a,m)} -1]$\;
-      }
-    }
-  }
-  \caption{CSMA/ECA}
-  \label{alg:CSMA_ECA}
-\end{algorithm}
-
-
-\begin{algorithm}
-  %\tcc{Initialize $b$.}
-  $b \leftarrow \mathcal{U}[0,\rm{CW}_{min}-1]$\;
-  \tcc{Hysteresis: The backoff stage is reset only when a node joins the contention or the queue is empty.}
-  $a \leftarrow 0$ \;
-  \While{there is a packet to transmit}{
-    %\tcc{Initialize $a$.}
-    \While{$a < A$}{
-      %\tcc{First, backoff.}
-      \While{$b>0$}{
-        wait 1 slot \;
-        $b \leftarrow b-1$ \;
-      }
-      Attempt transmission \;
-      \eIf{success}{
-        \tcc{Deterministic backoff.}
-        $b \leftarrow \rm{CW}_{min}/2$\;
-        break \;
-      }
-      {
-        %\tcc{If transmission fails.}
-        $a \leftarrow a+1$ \;
-        \tcc{fall to random backoff.}
-        $b \leftarrow \mathcal{U}[0, \rm{CW}_{min} 2^{\min (a,m)} -1]$\;
-      }
-    }
-  }
-  \caption{CSMA/ECA with hysteresis}
-  \label{alg:CSMA_ECA_hist}
-\end{algorithm}
-
-
-\begin{algorithm}
-  %\tcc{Initialize $b$.}
-  $b \leftarrow \mathcal{U}[0,\rm{CW}_{min}-1]$\;
-  \tcc{Hysteresis: The backoff stage is reset only when a node joins the contention or the queue is empty.}
-  $a \leftarrow 0$ \;
-  \While{there is a packet to transmit}{
-    %\tcc{Initialize $a$.}
-    \While{$a < A$}{
-      %\tcc{First, backoff.}
-      \While{$b>0$}{
-        wait 1 slot \;
-        $b \leftarrow b-1$ \;
-      }
-      \tcc{Fair-share: $2^a$ packets are transmitted.}
-      Attempt aggregate transmission of $2^{min (a,m)}$ packets\;
-      \eIf{success}{
-        \tcc{Deterministic backoff.}
-        $b \leftarrow \rm{CW}_{min}/2$\;
-        break \;
-      }
-      {
-        %\tcc{If transmission fails.}
-        $a \leftarrow a+1$ \;
-        \tcc{fall to random backoff.}
-        $b \leftarrow \mathcal{U}[0, \rm{CW}_{min} 2^{\min (a,m)} -1]$\;
-      }
-    }
-  }
-  \caption{CSMA/ECA with hysteresis and fair-share}
-  \label{alg:CSMA_ECA_hist_fair}
 \end{algorithm}
 
 
