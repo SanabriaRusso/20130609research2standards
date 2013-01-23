@@ -499,12 +499,17 @@ In the present paper, we study a completely distributed solution to accommodate 
 \section{Enhanced CSMA}
 
 \begin{algorithm}
-  %\tcc{Initialize $b$.}
+\While{True}
+{
+  %\tcc{Initialize retransmission attempts.}
   $r \leftarrow 0$ \;
-  $b \leftarrow \mathcal{U}[0,\rm{CW}_{min}-1]$\;
+  %\tcc{Initialize backoff stage.}
+  $s \leftarrow 0$ \;
+  %\tcc{Initialize backoff counter.}
+  $b \leftarrow \mathcal{U}[0,2^s\rm{CW}_{min}-1]$\;
   \While{there is a packet to transmit}{
     %\tcc{Initialize $a$.}
-    \Repeat{$r = R$}{
+    \Repeat{($r = R$) or (success)}{
       %\tcc{First, backoff.}
       \While{$b>0$}{
         wait 1 slot \;
@@ -512,25 +517,165 @@ In the present paper, we study a completely distributed solution to accommodate 
       }
       Attempt transmission \;
       \eIf{success}{
-        \tcc{Random backoff.}
-        $b \leftarrow \mathcal{U}[0,\rm{CW}_{min}-1]$\;
-        break \;
+        %\tcc{Random backoff.}
+        $r \leftarrow 0$ \;
+        $s \leftarrow 0$ \;
+        $b \leftarrow \mathcal{U}[0,2^{s}\rm{CW}_{min}-1]$\;
       }
       {
-        \tcc{Random backoff.}
+        %\tcc{Random backoff.}
         $r \leftarrow r+1$ \;
-        $b \leftarrow \mathcal{U}[0, \rm{CW}_{min} 2^{\min (a,m)} -1]$\;
+        $s \leftarrow \min r(s+1,S)$ \;
+        $b \leftarrow \mathcal{U}[0, 2^s \rm{CW}_{min} -1]$\;
       }
     }
-    Discard packet\;
-    \tcc{And get ready for next one}  
-    $r \leftarrow 0$ \;
-    $b \leftarrow \mathcal{U}[0,\rm{CW}_{min}-1]$\;
+    \If{r=R}
+    {
+      Discard packet\;
+      $r \leftarrow 0$ \;
+      $s \leftarrow 0$ \;
+      $b \leftarrow \mathcal{U}[0,2^s \rm{CW}_{min}-1]$\;
+    }
   }
-  \caption{CSMA/CA}
-  \label{alg:CSMA_ECA}
+}
+\caption{CSMA/CA}
+\label{alg:CSMA_CA}
 \end{algorithm}
 
+
+\begin{algorithm}
+\While{True}
+{
+  %\tcc{Initialize retransmission attempts.}
+  $r \leftarrow 0$ \;
+  %\tcc{Initialize backoff stage.}
+  $s \leftarrow 0$ \;
+  %\tcc{Initialize backoff counter.}
+  $b \leftarrow \mathcal{U}[0,2^s\rm{CW}_{min}-1]$\;
+  \While{there is a packet to transmit}{
+    %\tcc{Initialize $a$.}
+    \Repeat{($r = R$) or (success)}{
+      %\tcc{First, backoff.}
+      \While{$b>0$}{
+        wait 1 slot \;
+        $b \leftarrow b-1$ \;
+      }
+      Attempt transmission \;
+      \eIf{success}{
+        %\tcc{Random backoff.}
+        $r \leftarrow 0$ \;
+        $s \leftarrow 0$ \;
+        $b \leftarrow (2^{s}\rm{CW}_{min})/2$\;
+      }
+      {
+        %\tcc{Random backoff.}
+        $r \leftarrow r+1$ \;
+        $s \leftarrow \min r(s+1,S)$ \;
+        $b \leftarrow \mathcal{U}[0, 2^s  \rm{CW}_{min} -1]$\;
+      }
+    }
+    \If{r=R}
+    {
+      Discard packet\;
+      $r \leftarrow 0$ \;
+      $s \leftarrow 0$ \;
+      $b \leftarrow \mathcal{U}[0, 2^s \rm{CW}_{min}-1]$\;
+    }
+  }
+}
+\caption{CSMA/ECA}
+\label{alg:CSMA_ECA}
+\end{algorithm}
+
+
+\begin{algorithm}
+\While{True}
+{
+  %\tcc{Initialize retransmission attempts.}
+  $r \leftarrow 0$ \;
+  %\tcc{Initialize backoff stage.}
+  $s \leftarrow 0$ \;
+  %\tcc{Initialize backoff counter.}
+  $b \leftarrow \mathcal{U}[0,2^s\rm{CW}_{min}-1]$\;
+  \While{there is a packet to transmit}{
+    %\tcc{Initialize $a$.}
+    \Repeat{($r = R$) or (success)}{
+      %\tcc{First, backoff.}
+      \While{$b>0$}{
+        wait 1 slot \;
+        $b \leftarrow b-1$ \;
+      }
+      Attempt transmission \;
+      \eIf{success}{
+        %\tcc{Random backoff.}
+        $r \leftarrow 0$ \;
+        %$s \leftarrow 0$ \;
+        $b \leftarrow (2^{s}\rm{CW}_{min})/2$\;
+      }
+      {
+        %\tcc{Random backoff.}
+        $r \leftarrow r+1$ \;
+        $s \leftarrow \min r(s+1,S)$ \;
+        $b \leftarrow \mathcal{U}[0, 2^s  \rm{CW}_{min} -1]$\;
+      }
+    }
+    \If{r=R}
+    {
+      Discard packet\;
+      $r \leftarrow 0$ \;
+      %$s \leftarrow 0$ \;
+      $b \leftarrow \mathcal{U}[0, 2^s \rm{CW}_{min}-1]$\;
+    }
+  }
+}
+\caption{CSMA/ECA with hysteresis}
+\label{alg:CSMA_ECA_hist}
+\end{algorithm}
+
+
+\begin{algorithm}
+\While{True}
+{
+  %\tcc{Initialize retransmission attempts.}
+  $r \leftarrow 0$ \;
+  %\tcc{Initialize backoff stage.}
+  $s \leftarrow 0$ \;
+  %\tcc{Initialize backoff counter.}
+  $b \leftarrow \mathcal{U}[0,2^s\rm{CW}_{min}-1]$\;
+  \While{there is a packet to transmit}{
+    %\tcc{Initialize $a$.}
+    \Repeat{($r = R$) or (success)}{
+      %\tcc{First, backoff.}
+      \While{$b>0$}{
+        wait 1 slot \;
+        $b \leftarrow b-1$ \;
+      }
+      Attempt transmission of $2^s$ packets \;
+      \eIf{success}{
+        %\tcc{Random backoff.}
+        $r \leftarrow 0$ \;
+        %$s \leftarrow 0$ \;
+        $b \leftarrow (2^{s}\rm{CW}_{min})/2$\;
+      }
+      {
+        %\tcc{Random backoff.}
+        $r \leftarrow r+1$ \;
+        $s \leftarrow \min r(s+1,S)$ \;
+        $b \leftarrow \mathcal{U}[0, 2^s  \rm{CW}_{min} -1]$\;
+      }
+    }
+    \If{r=R}
+    {
+      Discard packet\;
+      $r \leftarrow 0$ \;
+      %$s \leftarrow 0$ \;
+      $b \leftarrow \mathcal{U}[0, 2^s \rm{CW}_{min}-1]$\;
+    }
+  }
+}
+\caption{CSMA/ECA with hysteresis and fair-share}
+\label{alg:CSMA_ECA_hist}
+\end{algorithm}
 
 \section{Performance Evaluation}
 
