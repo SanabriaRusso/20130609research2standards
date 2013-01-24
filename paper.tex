@@ -527,7 +527,7 @@ In the present paper, we study a completely distributed solution to accommodate 
       {
         %\tcc{Random backoff.}
         $r \leftarrow r+1$ \;
-        $s \leftarrow \min r(s+1,S)$ \;
+        $s \leftarrow \min (s+1,S)$ \;
         $b \leftarrow \mathcal{U}[0, 2^s \rm{CW}_{min} -1]$\;
       }
     }
@@ -572,7 +572,7 @@ In the present paper, we study a completely distributed solution to accommodate 
       {
         %\tcc{Random backoff.}
         $r \leftarrow r+1$ \;
-        $s \leftarrow \min r(s+1,S)$ \;
+        $s \leftarrow \min (s+1,S)$ \;
         $b \leftarrow \mathcal{U}[0, 2^s  \rm{CW}_{min} -1]$\;
       }
     }
@@ -617,7 +617,7 @@ In the present paper, we study a completely distributed solution to accommodate 
       {
         %\tcc{Random backoff.}
         $r \leftarrow r+1$ \;
-        $s \leftarrow \min r(s+1,S)$ \;
+        $s \leftarrow \min (s+1,S)$ \;
         $b \leftarrow \mathcal{U}[0, 2^s  \rm{CW}_{min} -1]$\;
       }
     }
@@ -662,7 +662,7 @@ In the present paper, we study a completely distributed solution to accommodate 
       {
         %\tcc{Random backoff.}
         $r \leftarrow r+1$ \;
-        $s \leftarrow \min r(s+1,S)$ \;
+        $s \leftarrow \min (s+1,S)$ \;
         $b \leftarrow \mathcal{U}[0, 2^s  \rm{CW}_{min} -1]$\;
       }
     }
