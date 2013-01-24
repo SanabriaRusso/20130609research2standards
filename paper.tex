@@ -518,20 +518,19 @@ In the present paper, we study a completely distributed solution to accommodate 
         $b \leftarrow b-1$ \;
       }
       Attempt transmission of 1 packet \;
-      \eIf{success}{
-        %\tcc{Random backoff.}
-        $r \leftarrow 0$ \;
-        $s \leftarrow 0$ \;
-        $b \leftarrow \mathcal{U}[0,2^{s}\rm{CW}_{min}-1]$\;
-      }
-      {
+      \If{collision}{
         %\tcc{Random backoff.}
         $r \leftarrow r+1$ \;
         $s \leftarrow \min (s+1,S)$ \;
         $b \leftarrow \mathcal{U}[0, 2^s \rm{CW}_{min} -1]$\;
       }
     }
-    \If{r=R}
+    \eIf{success}{
+      %\tcc{Random backoff.}
+      $r \leftarrow 0$ \;
+      $s \leftarrow 0$ \;
+      $b \leftarrow \mathcal{U}[0,2^{s}\rm{CW}_{min}-1]$\;
+    }
     {
       Discard packet\;
       $r \leftarrow 0$ \;
@@ -539,7 +538,7 @@ In the present paper, we study a completely distributed solution to accommodate 
       $b \leftarrow \mathcal{U}[0,2^s \rm{CW}_{min}-1]$\;
     }
   }
-  Wait for the next packet \;
+  Wait until there is a packet to transmit \;
 }
 \caption{CSMA/CA}
 \label{alg:CSMA_CA}
@@ -564,12 +563,7 @@ In the present paper, we study a completely distributed solution to accommodate 
         $b \leftarrow b-1$ \;
       }
       Attempt transmission of 1 packet \;
-      \eIf{success}{
-        %\tcc{Random backoff.}
-        $r \leftarrow 0$ \;
-        $s \leftarrow 0$ \;
-        $b \leftarrow (2^{s}\rm{CW}_{min})/2$\;
-      }
+      \If{collision}
       {
         %\tcc{Random backoff.}
         $r \leftarrow r+1$ \;
@@ -577,7 +571,12 @@ In the present paper, we study a completely distributed solution to accommodate 
         $b \leftarrow \mathcal{U}[0, 2^s  \rm{CW}_{min} -1]$\;
       }
     }
-    \If{r=R}
+    \eIf{success}{
+      %\tcc{Random backoff.}
+      $r \leftarrow 0$ \;
+      $s \leftarrow 0$ \;
+      $b \leftarrow (2^{s}\rm{CW}_{min})/2$\;
+    }
     {
       Discard packet\;
       $r \leftarrow 0$ \;
@@ -585,7 +584,7 @@ In the present paper, we study a completely distributed solution to accommodate 
       $b \leftarrow \mathcal{U}[0, 2^s \rm{CW}_{min}-1]$\;
     }
   }
-  Wait for the next packet \;
+  Wait until there is a packet to transmit \;
 }
 \caption{CSMA/ECA}
 \label{alg:CSMA_ECA}
@@ -610,20 +609,19 @@ In the present paper, we study a completely distributed solution to accommodate 
         $b \leftarrow b-1$ \;
       }
       Attempt transmission of 1 packet \;
-      \eIf{success}{
-        %\tcc{Random backoff.}
-        $r \leftarrow 0$ \;
-        %$s \leftarrow 0$ \;
-        $b \leftarrow (2^{s}\rm{CW}_{min})/2$\;
-      }
-      {
+      \If{collision}{
         %\tcc{Random backoff.}
         $r \leftarrow r+1$ \;
         $s \leftarrow \min (s+1,S)$ \;
         $b \leftarrow \mathcal{U}[0, 2^s  \rm{CW}_{min} -1]$\;
       }
     }
-    \If{r=R}
+    \eIf{success}{
+      %\tcc{Random backoff.}
+      $r \leftarrow 0$ \;
+      %$s \leftarrow 0$ \;
+      $b \leftarrow (2^{s}\rm{CW}_{min})/2$\;
+    }
     {
       Discard packet\;
       $r \leftarrow 0$ \;
@@ -631,7 +629,7 @@ In the present paper, we study a completely distributed solution to accommodate 
       $b \leftarrow \mathcal{U}[0, 2^s \rm{CW}_{min}-1]$\;
     }
   }
-  Wait for the next packet \;
+  Wait until there is a packet to transmit \;
 }
 \caption{CSMA/ECA with hysteresis}
 \label{alg:CSMA_ECA_hist}
@@ -656,20 +654,19 @@ In the present paper, we study a completely distributed solution to accommodate 
         $b \leftarrow b-1$ \;
       }
       Attempt transmission of $2^s$ packets \;
-      \eIf{success}{
-        %\tcc{Random backoff.}
-        $r \leftarrow 0$ \;
-        %$s \leftarrow 0$ \;
-        $b \leftarrow (2^{s}\rm{CW}_{min})/2$\;
-      }
-      {
+      \If{collision}{
         %\tcc{Random backoff.}
         $r \leftarrow r+1$ \;
         $s \leftarrow \min (s+1,S)$ \;
         $b \leftarrow \mathcal{U}[0, 2^s  \rm{CW}_{min} -1]$\;
       }
     }
-    \If{r=R}
+    \eIf{success}{
+      %\tcc{Random backoff.}
+      $r \leftarrow 0$ \;
+      %$s \leftarrow 0$ \;
+      $b \leftarrow (2^{s}\rm{CW}_{min})/2$\;
+    }
     {
       Discard packet\;
       $r \leftarrow 0$ \;
@@ -677,7 +674,7 @@ In the present paper, we study a completely distributed solution to accommodate 
       $b \leftarrow \mathcal{U}[0, 2^s \rm{CW}_{min}-1]$\;
     }
   }
-  Wait for the next packet \;
+  Wait until there is a packet to transmit \;
 }
 \caption{CSMA/ECA with hysteresis and fair-share}
 \label{alg:CSMA_ECA_hist_fair}
@@ -708,7 +705,7 @@ Algorithm \ref{alg:CSMA_ECA} describes CSMA/ECA in which a deterministic backoff
 The only change with respect to CSMA/CA is in line 14, where the determimistic assignment takes place.
 
 Hysteresis is included in \ref{alg:CSMA_ECA_hist}.
-Adding hysteresis is as simple as removing lines 13 and 23 from Algorithm \ref{alg:CSMA_ECA}.
+Adding hysteresis is as simple as removing lines 18 and 23 from Algorithm \ref{alg:CSMA_ECA}.
 Note that when hysteresis is used, the backoff stage is reset only when the node has no packet to serve.
 
 Finally, fair-share is implemented in \ref{alg:CSMA_ECA_hist_fair}.
