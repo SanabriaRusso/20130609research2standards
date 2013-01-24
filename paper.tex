@@ -504,9 +504,7 @@ In the present paper, we study a completely distributed solution to accommodate 
 \While{the device is on}
 {
   %\tcc{Initialize retransmission attempts.}
-  $r \leftarrow 0$ \;
-  %\tcc{Initialize backoff stage.}
-  $s \leftarrow 0$ \;
+  $r \leftarrow 0$ ; $s \leftarrow 0$ \;
   %\tcc{Initialize backoff counter.}
   $b \leftarrow \mathcal{U}[0,2^s\rm{CW}_{min}-1]$\;
   \While{there is a packet to transmit}{
@@ -548,11 +546,7 @@ In the present paper, we study a completely distributed solution to accommodate 
 \begin{algorithm}
 \While{the device is on}
 {
-  %\tcc{Initialize retransmission attempts.}
-  $r \leftarrow 0$ \;
-  %\tcc{Initialize backoff stage.}
-  $s \leftarrow 0$ \;
-  %\tcc{Initialize backoff counter.}
+  $r \leftarrow 0$ ; $s \leftarrow 0$ \;
   $b \leftarrow \mathcal{U}[0,2^s\rm{CW}_{min}-1]$\;
   \While{there is a packet to transmit}{
     %\tcc{Initialize $a$.}
@@ -594,11 +588,7 @@ In the present paper, we study a completely distributed solution to accommodate 
 \begin{algorithm}
 \While{the device is on}
 {
-  %\tcc{Initialize retransmission attempts.}
-  $r \leftarrow 0$ \;
-  %\tcc{Initialize backoff stage.}
-  $s \leftarrow 0$ \;
-  %\tcc{Initialize backoff counter.}
+  $r \leftarrow 0$ ; $s \leftarrow 0$ \;
   $b \leftarrow \mathcal{U}[0,2^s\rm{CW}_{min}-1]$\;
   \While{there is a packet to transmit}{
     %\tcc{Initialize $a$.}
@@ -631,6 +621,7 @@ In the present paper, we study a completely distributed solution to accommodate 
   }
   Wait until there is a packet to transmit \;
 }
+\vspace{0.2cm}
 \caption{CSMA/ECA with hysteresis}
 \label{alg:CSMA_ECA_hist}
 \end{algorithm}
@@ -639,11 +630,7 @@ In the present paper, we study a completely distributed solution to accommodate 
 \begin{algorithm}
 \While{the device is on}
 {
-  %\tcc{Initialize retransmission attempts.}
-  $r \leftarrow 0$ \;
-  %\tcc{Initialize backoff stage.}
-  $s \leftarrow 0$ \;
-  %\tcc{Initialize backoff counter.}
+  $r \leftarrow 0$ ; $s \leftarrow 0$ \;
   $b \leftarrow \mathcal{U}[0,2^s\rm{CW}_{min}-1]$\;
   \While{there is a packet to transmit}{
     %\tcc{Initialize $a$.}
@@ -676,6 +663,7 @@ In the present paper, we study a completely distributed solution to accommodate 
   }
   Wait until there is a packet to transmit \;
 }
+\vspace{0.2cm}
 \caption{CSMA/ECA with hysteresis and fair-share}
 \label{alg:CSMA_ECA_hist_fair}
 \end{algorithm}
