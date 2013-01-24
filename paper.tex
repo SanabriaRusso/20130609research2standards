@@ -360,22 +360,23 @@
 % author names and affiliations
 % use a multiple column layout for up to three different
 % affiliations
-\author{\IEEEauthorblockN{Michael Shell}
-\IEEEauthorblockA{School of Electrical and\\Computer Engineering\\
-Georgia Institute of Technology\\
-Atlanta, Georgia 30332--0250\\
-Email: http://www.michaelshell.org/contact.html}
-\and
-\IEEEauthorblockN{Homer Simpson}
-\IEEEauthorblockA{Twentieth Century Fox\\
-Springfield, USA\\
-Email: homer@thesimpsons.com}
-\and
-\IEEEauthorblockN{James Kirk\\ and Montgomery Scott}
-\IEEEauthorblockA{Starfleet Academy\\
-San Francisco, California 96678-2391\\
-Telephone: (800) 555--1212\\
-Fax: (888) 555--1212}}
+\author{\IEEEauthorblockN{Luis Sanabria-Russo, Azadeh Faridi, Boris Bellalta, Jaume Barcelo, Miquel Oliver}
+\IEEEauthorblockA{
+Universitat Pompeu Fabra\\
+Roc Boronat 183, 08018 Barcelona\\
+Email: \{name.surname@upf.edu\}}
+}
+%\and
+%\IEEEauthorblockN{Homer Simpson}
+%\IEEEauthorblockA{Twentieth Century Fox\\
+%Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\and
+%\IEEEauthorblockN{James Kirk\\ and Montgomery Scott}
+%\IEEEauthorblockA{Starfleet Academy\\
+%San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212\\
+%Fax: (888) 555--1212}}
 
 % conference papers do not typically use \thanks and this command
 % is locked out in conference mode. If really needed, such as for
@@ -455,6 +456,7 @@ A candidate to replace CSMA/CA should
 \begin{itemize}
   \item Provide performance advantages, either in the form of throughput or short term fairness.
   \item Be backward compatible with current implementation.
+  \item Support a large number of simultaneous contenders.
   \item Be simple a simple evolution implementation to ease the transition and reduce time to market (Optional but desirable).
 \end{itemize}
 \section{Related Work}
@@ -677,11 +679,23 @@ In the present paper, we study a completely distributed solution to accommodate 
 \label{alg:CSMA_ECA_hist_fair}
 \end{algorithm}
 
+In this section we describe the CSMA/CA protocol as it is currently implemented in the IEEE 802.11 and an evolution of the standard that satisfies the four requirements specified in the introduction.
+Therefore, the presented protocol is a valid candidate to replace CSMA/CA in the upcoming revisions of the standard.
+
+There are three changes in the new protocol compared to the legacy one.
+Firstly, a deterministic backoff is used after successful transmissions.
+Secondly, the backoff stage is not reset after a packet is serviced.
+The backoff stage is reset only when the station leaves the contention because it has no packet to be transmitted.
+And thirdly, the number of packets transmitted in every transmission attempt is a function of the backoff stage.
+Note that current standards already support the transmission of multiple packets in a single slot.
+
+In the following we describe the original protocol and then we describe each of the modifications that we propose, one by one.
+
 Algorithm \ref{alg:CSMA_CA} describes the CSMA/CA algorithm that is used in current networks.
-When a station joins the contention it initilalizes the retry attempt counter $r$ and the backoff stage $s$ to zero.
+When a station joins the contention it initializes the retry attempt counter $r$ and the backoff stage $s$ to zero.
 The backoff counter $b$ is initialized using a uniform random distribution and a contention window.
 After each collision, the retry attempt counter and the backoff stage counter are incremented.
-As a consecuence of the incremented backoff stage, a larger contention window is used.
+As a consequence of the incremented backoff stage, a larger contention window is used.
 Note that there is maximum backoff stage $S$ and a maximum retry limit $R$.
 When the maximum retry  limit is reached the packet is discarded, $r$ and $s$ are reset anb a new value for $b$ is computed.
 Similarly, if the packet is successfully transmitted, the $s$ and $r$ counters are reset and a new random backoff counter is computed.
@@ -690,10 +704,11 @@ Algorithm \ref{alg:CSMA_ECA} describes CSMA/ECA in which a deterministic backoff
 The only change with respect to CSMA/CA is in line 14, where the determimistic assignment takes place.
 
 Hysteresis is included in \ref{alg:CSMA_ECA_hist}.
-Adding hysteresis is as simple as removing lines 13 and 23 from Algoritm \ref{alg:CSMA_ECA}.
+Adding hysteresis is as simple as removing lines 13 and 23 from Algorithm \ref{alg:CSMA_ECA}.
+Note that when hysteresis is used, the backoff stage is reset only when the node has no packet to serve.
 
 Finally, fair-share is implemented in \ref{alg:CSMA_ECA_hist_fair}.
-Line 10 of \ref{alg:CSMA_ECA_hist} is modified to increas the number of transmitted packets from one to $2^s$.
+Line 10 of \ref{alg:CSMA_ECA_hist} is modified to increase the number of transmitted packets from one to $2^s$.
 
 \section{Performance Evaluation}
 
