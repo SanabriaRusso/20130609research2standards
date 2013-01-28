@@ -66,9 +66,13 @@ Email: \{name.surname@upf.edu\}}
 
 \begin{abstract}
 %\boldmath
-In this paper we present the requirements of candidate protocols to replace the prevalent CSMA/CA medium access control.
-We discuss the possibility of further preventing collisions and provide an overview of the related work.
-We specify a protocol that is a candidate for replacing CSMA/CA in pseudocode and use simulation to assess performance metrics such as throughput, fairness and collision probability.
+In this paper a candidate protocol to replace the prevalent CSMA/CA medium access control in Wireless Local Area Networks is presented. The proposed protocol can achieve higher throughput compared to CSMA/CA, while maintaining fairness, and without additional implementation complexity. Under certain circumstances, it is able to reach and maintain collision-free operation, even when the number of contenders is variable and potentially large. It is backward compatible, allowing for new and legacy stations to coexist without degrading one another's performance, a property that can make the adoption process by future versions of the standard smooth and inexpensive.
+
+% In this paper we have described a simply implementable protocol that can be used as a replacement of the prevalent CSMA/CA protocol used in the IEEE 802.11 standard. Compared to the CSMA/CA protocol, the proposed protocol, called CSMA/ECA with hysteresis and fair-share, offers performance boost in terms of throughput while preserving long-term fairness. In fact, under certain conditions, collision-free operation can be reached in a distributed and adaptive manner, even as the number of nodes in the network increase. Furthermore, this protocol is backward compatible, and can operate with nodes using the legacy protocol without degrading the performance of the legacy nodes. All these properties make the proposed protocol a very suitable candidate to replace CSMA/CA in the upcoming revisions of the standard.
+
+% In this paper we present the requirements of candidate protocols to replace the prevalent CSMA/CA medium access control.
+% We discuss the possibility of further preventing collisions and provide an overview of the related work.
+% We specify a protocol that is a candidate for replacing CSMA/CA in pseudo-code and use simulation to assess performance metrics such as throughput, fairness and collision probability.
 \end{abstract}
 
 
@@ -89,22 +93,22 @@ We specify a protocol that is a candidate for replacing CSMA/CA in pseudocode an
 % You must have at least 2 lines in the paragraph with the drop letter
 % (should never be an issue)
 
-Since the popularization of the IEEE 802.11 standard, several works \cite{bharghavan1994map,wang2004ncr,cali2000dti,lopez-toledo2006aoi,
-barcelo2008lba,bellalta2009vtc,he2009srb,barcelo2010fcc,fang2011dlm,hui2011epp,barcelo2011tcf} \Az{(missing any?)} have proposed modifications to CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance), the contention protocol used in the standard for sharing the medium. \Az{Despite the throughput improvement offered by all these works, none of the proposed modifications have yet been adapted by the standard.}
+Since the popularization of the IEEE 802.11 standard, several works (e.g.,  \cite{bharghavan1994map,wang2004ncr,cali2000dti,lopez-toledo2006aoi,
+barcelo2008lba,bellalta2009vtc,he2009srb,barcelo2010fcc,fang2011dlm,hui2011epp,barcelo2011tcf}) have proposed modifications to CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance), the contention protocol used in the standard for controling the access to the shared medium. {Despite the throughput improvement offered by all these works, none of the proposed modifications have yet been adopted by the standard.}
 
-It is essential for a candidate CSMA/CA replacement to
+A suitable candidate for the replacement of CSMA/CA, should
 \begin{itemize}
-  \item provide performance advantages in terms of throughput and/or short term fairness;
+  \item provide performance advantages in terms of throughput and/or short-term fairness;
   \item be backward compatible with the current implementation;
   \item support a large number of simultaneous contenders; and 
   \item be a simple evolution, in terms of implementation, to ease the transition and reduce the time to market (optional but desirable).
 \end{itemize}
 
-The aforementioned works can be categorized in three groups regarding the approach they use. \Az{In this paper, we will focus on the last of these three groups, proposing an additional enhancement to make it more adaptable to network size variations, and make the case for its adaptation by the standard.}
+The aforementioned works can be categorized in three groups regarding the approach they use. {In this paper, we will focus on the last of these three groups, proposing an additional enhancement to make it more adaptable to network size variations, and make the case for its adoption by the future versions of the standard.}
 
-In the first group, represented by \cite{bharghavan1994map,wang2004ncr}, a throughput increase is obtained in saturation conditions by preventing the contention window from resetting to its minimum value after each successful transmission. However this performance gain comes at the expense of reduced short term fairness, since nodes that have recently gone through a sequence of consecutive collisions are forced to stay at a higher back-off stage and thus are further penalized by less frequent transmissions.
+In the first group, represented here by \cite{bharghavan1994map,wang2004ncr}, a throughput increase is obtained in saturation conditions by preventing the contention window from resetting to its minimum value after each successful transmission. However this performance gain comes at the expense of reduced short-term fairness, since nodes that have recently gone through a sequence of consecutive collisions are forced to stay at a higher backoff stage and thus are further penalized by less frequent transmissions.
 
-In the second group of works, exemplified here by \cite{cali2000dti,lopez-toledo2006aoi}, an accurate estimate of the number of contenders is used to adjust the contention parameters. This approach offers some throughput and fairness gains, but at the expense of increased implementation complexity. In addition, as the number of contenders is estimated relying on the number of collisions, the presence of channel errors further complicates the estimation \Az{[Complicates, or renders it inaccurate? Is there a work-around offered?]}.
+In the second group of works, exemplified here by \cite{cali2000dti,lopez-toledo2006aoi}, an accurate estimate of the number of contenders is used to adjust the contention parameters. This approach offers some throughput and fairness gains, but at the expense of increased implementation complexity. In addition, as the number of contenders is estimated relying on the number of collisions, the presence of channel errors renders the estimation inaccurate.
 Furthermore, there is a fundamental trade-off between the stability and the speed of reaction of the estimation.
 
 When it comes to backward compatibility, neither of the aforementioned solutions are able to fairly share the medium with legacy devices.
@@ -112,14 +116,14 @@ In fact, these proposals are, generally speaking, less aggressive than the curre
 
 A more important limitation of the two approaches exposed so far is that the throughput is bounded by that of CSMA/CA with optimal configuration \cite{cali2000dti,bianchi2000pai}.
 
-The third group of solutions, which is the focus of the current paper, can deliver a throughput above the maximum attainable by CSMA/CA. This performance boost is achieved mainly by the use of deterministic backoff after successful transmissions, which reduces the chances of collisions for nodes that were successful in their previous transmission. Furthermore, under certain conditions, a collision-free operation can be reached. \Az{We will refer hereafter to the class of algorithms that use deterministic backoffs after successful transmissions as CSMA with Enhanced Collision Avoidance (CSMA/ECA).} This approach was first introduced in \cite{barcelo2008lba} \Az{(Does this contain analysis?)}, and later a more detailed analysis for both saturated and non-saturated conditions was presented in \cite{bellalta2009vtc}.
+The third group of solutions, which is the focus of the current paper, can deliver a throughput above the maximum attainable by CSMA/CA. This performance boost is achieved mainly by the use of deterministic backoff after successful transmissions, which reduces the chances of collisions for nodes that were successful in their previous transmission. Furthermore, under certain conditions, a collision-free operation can be reached. {We will refer hereafter to the class of algorithms that use deterministic backoffs after successful transmissions as CSMA with Enhanced Collision Avoidance (CSMA/ECA).} This approach was first introduced in \cite{barcelo2008lba}, and later a more detailed analysis for both saturated and non-saturated conditions was presented in \cite{bellalta2009vtc}.
 A more in-depth study is carried out in \cite{he2009srb}, including realistic elements such as the possibility of Clear Channel Assessment errors.
 Different aspects of fairness are addressed in \cite{he2009srb,barcelo2010fcc,fang2011dlm}.
 The performance in realistic channels, taking into account the Auto Rate Fallback mechanism, is evaluated in \cite{martorell2012pec,martorell2012tfl}.
 
-Even though initial research efforts where focused on the WLAN collision problem, more recent papers try to extend the idea to multi-hop networks.
-In \cite{hui2011epp}, the multi-hop slotted case explored.
-The more realistic situation in multi-hop networks in which the time is not slotted is studied in \cite{barcelo2013dcc}.
+Even though initial research efforts where focused on the WLAN collision problem, more recent works try to extend the idea to multi-hop networks.
+In \cite{hui2011epp}, the multi-hop slotted case is explored.
+A solution that does not require network-wide slot synchronization is studied in  \cite{barcelo2013dcc}.
 
 The same principles that we exploit to prevent collisions in WLANs can be used in other areas of radio resource management in wireless area networks \cite{duffy2011dcs,checco2012scs,checco2012lbc,khan2013aso}.
 
@@ -127,13 +131,39 @@ In all the previous work on collision-free operation in WLANs mentioned so far, 
 If this value is exceeded, it is no longer possible to achieve collision-free operation.
 A first solution to solve this problem is presented in \cite{barcelo2011tcf}, but it requires the presence of a central entity (typically the access point) that instructs the other nodes to adjust the value of their deterministic backoff.
 
-In the current paper, we present a completely distributed solution, called {\it backoff stage hysteresis} or simply hysteresis, to accommodate a large number of contenders in a fair collision-free fashion. We furthermore detail pseudo-code algorithms for three different types of CSMA/ECA and highlight how they can be easily implemented using simple modifications to the currently-used CSMA/CA algorithm. We will then present some performance evaluation, quantifying the performance gain that these three types of CSMA/ECA can achieve, both in terms of throughput and fairness.
+In the current paper, we present a completely distributed solution, called {\it backoff stage hysteresis} or simply hysteresis, which is a simple modification to CSMA/ECA to accommodate a large number of contenders in an adaptive and distributed fashion. Hysteresis by itself, comes at the expense of reduction in long-term fairness. Using hysteresis together with what we will refer to as {\it fare-share} allows for reaching collision-free operation with self-adaptation to a variable, and potentially large, number of contenders while preserving fairness. The concept of fair-share was first introduced in \cite{fang2011dlm}. We will furthermore detail pseudo-code algorithms for three different types of CSMA/ECA (basic, with hysteresis, and with both hysteresis and fair-share) and highlight how they can be easily implemented using simple modifications to the currently-used CSMA/CA algorithm. We will then present some performance evaluation, quantifying the performance gain that these three types of CSMA/ECA can achieve, both in terms of throughput and fairness. 
 
-\Az{-comment about backward compatibility and other items in the candidate requirements.}
+{Note that the coexistence and fairness of CSMA/ECA and CSMA/CA has been studied in \cite{barcelo2010fcc}. The addition of hysteresis and fair-share may represent less frequent transmissions and more packets per transmission, which do not interfere in any way with the execution of the legacy protocol.}
+
 
 \section{Enhanced CSMA/CA}
 
-\begin{algorithm}
+In this section and the next, we make the case for the suitability of CSMA/ECA with hysteresis and fair-share as a future replacement to the CSMA/CA protocol. To do this, we begin by presenting a simple pseudo-code which captures the essence of the CSMA/CA protocol as it is currently implemented in the IEEE 802.11 standard. We will then show how CSMA/ECA can be implemented by a minor modification to the CSMA/CA algorithm. We then describe hysteresis and fair-share, by presenting minor modifications, one by one, to the CSMA/ECA algorithm. The final product---CSMA/ECA with hysteresis and fair-share---satisfies the four requirements specified in the introduction, which makes it a suitable candidate to replace CSMA/CA in the upcoming revisions of the standard. We would like to emphasize here that the basic CSMA/ECA and the concept of fair-share are not presented here for the first time, however, we include the algorithms corresponding to these protocols for both completeness and ease of comparison between protocols.
+
+Algorithm \ref{alg:CSMA_CA} describes the CSMA/CA algorithm that is used in current networks.
+When a station joins the contention, it initializes the retry attempt counter $r$ and the backoff stage $s$ to zero. The backoff counter $b$ is initialized using a uniform random distribution and the minimum contention window $\text{CW}_{\min}$. After each collision, the retry attempt counter and the backoff stage counter are incremented. As a consequence of the incremented backoff stage, a larger contention window is used. Note that there is a maximum backoff stage $S$ and a maximum retry limit $R$ specified by the protocol. When the number of transmission attempts on a packet reaches the maximum retry limit, the packet is discarded. Furthermore, $r$ and $s$ are reset to zero, and a new value for $b$ is computed both when the retry limit is reached and when the transmission is successful. Note that the pseudo-code performs the same action in lines $18$ and $21$. Therefore, the algorithm could have been further simplified if instead this action were moved to immediately after line $16$. However, the current presentation of the algorithm eases the comparison between the CSMA/CA and the enhancements that follow.
+
+% In this section, we describe the original CSMA/CA protocol and then we describe each of the modifications that we propose, one by one.
+% 
+% 
+% In this section we describe the CSMA/CA protocol as it is currently implemented in the IEEE 802.11 and an evolution of the standard that satisfies the four requirements specified in the introduction.
+% Therefore, the presented protocol is a valid candidate to replace CSMA/CA in the upcoming revisions of the standard.
+
+There are three changes in the CSMA/ECA with hysteresis and fair-share compared to the legacy CSMA/CA protocol. Firstly, a deterministic backoff is used after successful transmissions. This simple modification converts CSMA/CA into CSMA/ECA.
+Secondly, the backoff stage is not reset after a packet is serviced.
+The backoff stage is reset only when the station leaves the contention because it has no packet to be transmitted. This modification is what we have been referring to as hysteresis.
+And thirdly, the number of packets transmitted in every transmission attempt is chosen as a function of the backoff stage, which is what we call fair-share.
+Note that current standards already support the transmission of multiple packets in a single slot.
+
+Algorithm \ref{alg:CSMA_ECA} describes the basic CSMA/ECA in which a deterministic backoff is used after successful transmissions. The only change with respect to CSMA/CA is in fact in line $14$, where the random assignment of $b$ in CSMA/CA is replaced by a deterministic assignment in CSMA/ECA. Note that at this point the value of $s$ is zero, and therefore the assigned deterministic value is in fact $b = \text{CW}_{\min}/2$.
+
+Hysteresis is included in Algorithm \ref{alg:CSMA_ECA_hist}. Adding hysteresis is as simple as removing line $16$ from Algorithm \ref{alg:CSMA_ECA}. This means that the deterministic backoff value chosen after a successful transmission in this case is half the length of the backoff stage in which the successful transmission has occurred. In fact, the backoff stage is reset only when the node has no packet to serve. This allows for the use of larger deterministic backoff values, which means that the network can reach a collision-free operation for a higher number of nodes. Since in the collision-free operation, some nodes may have higher backoff values than others, this protocol does not share the medium in a fair manner among nodes.
+
+Finally, fair-share is implemented in Algorithm \ref{alg:CSMA_ECA_hist_fair} by simply modifying
+line $9$ of Algorithm \ref{alg:CSMA_ECA_hist} to increase the number of transmitted packets from one to $2^s$. This way, at each transmission opportunity in collision-free operation, each node transmits a number of packets proportional to the length of its deterministic backoff. Therefore, nodes that have to wait longer between transmission opportunities get to transmit more packets, hence fairness is preserved.
+
+
+\begin{algorithm}[ht!!!]
 \While{the device is on}
 {
   %\tcc{Initialize retransmission attempts.}
@@ -156,16 +186,14 @@ In the current paper, we present a completely distributed solution, called {\it 
         $b \leftarrow \mathcal{U}[0, 2^s \rm{CW}_{min} -1]$\;
       }
     }
-    \eIf{success}{
+    $r \leftarrow 0$ \;
+    $s \leftarrow 0$ \;
+	 \eIf{success}{
       %\tcc{Random backoff.}
-      $r \leftarrow 0$ \;
-      $s \leftarrow 0$ \;
       $b \leftarrow \mathcal{U}[0,2^{s}\rm{CW}_{min}-1]$\;
     }
     {
       Discard packet\;
-      $r \leftarrow 0$ \;
-      $s \leftarrow 0$ \;
       $b \leftarrow \mathcal{U}[0,2^s \rm{CW}_{min}-1]$\;
     }
   }
@@ -176,7 +204,7 @@ In the current paper, we present a completely distributed solution, called {\it 
 \end{algorithm}
 
 
-\begin{algorithm}
+\begin{algorithm}[ht!!!]
 \While{the device is on}
 {
   $r \leftarrow 0$ ; $s \leftarrow 0$ \;
@@ -198,16 +226,14 @@ In the current paper, we present a completely distributed solution, called {\it 
         $b \leftarrow \mathcal{U}[0, 2^s  \rm{CW}_{min} -1]$\;
       }
     }
+    $r \leftarrow 0$ \;
+    $s \leftarrow 0$ \;    
     \eIf{success}{
       %\tcc{Random backoff.}
-      $r \leftarrow 0$ \;
-      $s \leftarrow 0$ \;
       $b \leftarrow (2^{s}\rm{CW}_{min})/2$\;
     }
     {
       Discard packet\;
-      $r \leftarrow 0$ \;
-      $s \leftarrow 0$ \;
       $b \leftarrow \mathcal{U}[0, 2^s \rm{CW}_{min}-1]$\;
     }
   }
@@ -218,7 +244,7 @@ In the current paper, we present a completely distributed solution, called {\it 
 \end{algorithm}
 
 
-\begin{algorithm}
+\begin{algorithm}[ht!!!]
 \While{the device is on}
 {
   $r \leftarrow 0$ ; $s \leftarrow 0$ \;
@@ -239,16 +265,14 @@ In the current paper, we present a completely distributed solution, called {\it 
         $b \leftarrow \mathcal{U}[0, 2^s  \rm{CW}_{min} -1]$\;
       }
     }
+    $r \leftarrow 0$ \;
+    %$s \leftarrow 0$ \;
     \eIf{success}{
       %\tcc{Random backoff.}
-      $r \leftarrow 0$ \;
-      %$s \leftarrow 0$ \;
       $b \leftarrow (2^{s}\rm{CW}_{min})/2$\;
     }
     {
       Discard packet\;
-      $r \leftarrow 0$ \;
-      %$s \leftarrow 0$ \;
       $b \leftarrow \mathcal{U}[0, 2^s \rm{CW}_{min}-1]$\;
     }
   }
@@ -260,7 +284,7 @@ In the current paper, we present a completely distributed solution, called {\it 
 \end{algorithm}
 
 
-\begin{algorithm}
+\begin{algorithm}[ht!!!]
 \While{the device is on}
 {
   $r \leftarrow 0$ ; $s \leftarrow 0$ \;
@@ -281,16 +305,14 @@ In the current paper, we present a completely distributed solution, called {\it 
         $b \leftarrow \mathcal{U}[0, 2^s  \rm{CW}_{min} -1]$\;
       }
     }
+    $r \leftarrow 0$ \;
+    %$s \leftarrow 0$ \;
     \eIf{success}{
       %\tcc{Random backoff.}
-      $r \leftarrow 0$ \;
-      %$s \leftarrow 0$ \;
       $b \leftarrow (2^{s}\rm{CW}_{min})/2$\;
     }
     {
       Discard packet\;
-      $r \leftarrow 0$ \;
-      %$s \leftarrow 0$ \;
       $b \leftarrow \mathcal{U}[0, 2^s \rm{CW}_{min}-1]$\;
     }
   }
@@ -301,46 +323,18 @@ In the current paper, we present a completely distributed solution, called {\it 
 \label{alg:CSMA_ECA_hist_fair}
 \end{algorithm}
 
-In this section we describe the CSMA/CA protocol as it is currently implemented in the IEEE 802.11 and an evolution of the standard that satisfies the four requirements specified in the introduction.
-Therefore, the presented protocol is a valid candidate to replace CSMA/CA in the upcoming revisions of the standard.
-
-There are three changes in the new protocol compared to the legacy one.
-Firstly, a deterministic backoff is used after successful transmissions.
-Secondly, the backoff stage is not reset after a packet is serviced.
-The backoff stage is reset only when the station leaves the contention because it has no packet to be transmitted.
-And thirdly, the number of packets transmitted in every transmission attempt is a function of the backoff stage.
-Note that current standards already support the transmission of multiple packets in a single slot.
-
-In the following we describe the original protocol and then we describe each of the modifications that we propose, one by one.
-
-Algorithm \ref{alg:CSMA_CA} describes the CSMA/CA algorithm that is used in current networks.
-When a station joins the contention it initializes the retry attempt counter $r$ and the backoff stage $s$ to zero.
-The backoff counter $b$ is initialized using a uniform random distribution and a contention window.
-After each collision, the retry attempt counter and the backoff stage counter are incremented.
-As a consequence of the incremented backoff stage, a larger contention window is used.
-Note that there is maximum backoff stage $S$ and a maximum retry limit $R$.
-When the maximum retry  limit is reached the packet is discarded, $r$ and $s$ are reset anb a new value for $b$ is computed.
-Similarly, if the packet is successfully transmitted, the $s$ and $r$ counters are reset and a new random backoff counter is computed.
-
-Algorithm \ref{alg:CSMA_ECA} describes CSMA/ECA in which a deterministic backoff is used after successful transmission.
-The only change with respect to CSMA/CA is in line 14, where the determimistic assignment takes place.
-
-Hysteresis is included in \ref{alg:CSMA_ECA_hist}.
-Adding hysteresis is as simple as removing lines 18 and 23 from Algorithm \ref{alg:CSMA_ECA}.
-Note that when hysteresis is used, the backoff stage is reset only when the node has no packet to serve.
-
-Finally, fair-share is implemented in \ref{alg:CSMA_ECA_hist_fair}.
-Line 10 of \ref{alg:CSMA_ECA_hist} is modified to increase the number of transmitted packets from one to $2^s$.
 
 \section{Performance Evaluation} \label{sec:perf_eval}
 
 %Ok, I'd use CWmin/2 instead of Nmax, and "s" instead of "l" for the backoff stage.
 
-In this section, the performance of the different CSMA protocols is evaluated through simulations. The presented results show the saturation throughput and fairness (Jain's Fairness Index (JFI) \cite{jain1984quantitative}) when the number of contenders increases. Additionally, the evolution of the probabilities that one slot is empty, contains a successful transmission or a collision, are plotted to provide further insights on the operation of each protocol.
+In this section, the performance of the different CSMA protocols is evaluated through simulations. The presented results show the saturation throughput and fairness (Jain's Fairness Index (JFI) \cite{jain1984quantitative}) when the number of contenders increases. Additionally, the evolution of the probabilities that one slot collision is plotted to provide further insights on the operation of each protocol, and specially whether the collision-free operation is reached. 
 
-To evaluate the four protocols, a network of N nodes is considered, where each node is within the coverage area of the others. The nodes are set to be under saturation (always have packets to transmit). The number of contenders, $N$, ranges from $2$ to $50$, and one thousand instances of the simulation are performed for each $N$. All plotted results show the 95\% confidence intervals. 
+%Additionally, the evolution of the probabilities that one slot is empty, contains a successful transmission or a collision, are plotted to provide further insights on the operation of each protocol.
 
-A simulator of such scenario has been built, from scratch, using the C++ language and based on the COST (Component Oriented Simulation Toolkit) libraries \cite{yucesan2002cost}. The specific parameters of the IEEE 802.11n amendment \cite{IEEE80211n} are considered, and listed on Table \ref{Tbl:parameters}. In case packets are aggregated, default A-MPDU aggregation is considered. Further MAC-related parameters, as well as the code for the four CSMA protocols, are available online \cite{SanabriaSimulatorECA2012}.
+To evaluate the four protocols, a network of $N$ nodes is considered, where each node is within the coverage area of the others. The nodes are set to be under saturation (always have packets to transmit). The number of contenders, $N$, ranges from $2$ to $50$, and one thousand instances of the simulation are performed for each $N$. All plotted results show the 95\% confidence intervals. 
+
+A simulator of such scenario has been built, from scratch, using the C++ language and based on the COST (Component Oriented Simulation Toolkit) libraries \cite{yucesan2002cost}. The specific parameters of the IEEE 802.11n amendment \cite{IEEE80211n} are considered, and listed in Table \ref{Tbl:parameters}. In case packets are aggregated, default A-MPDU aggregation is considered. Further MAC-related parameters, as well as the code for the four CSMA protocols, are available online \cite{SanabriaSimulatorECA2012}.
 
 
 
@@ -352,17 +346,18 @@ Parameter & Value \\
 \hline
 $CW_{\min}$ & $16$ slots \\
 $S$ & 5 stages\\
-SIFS, DIFS & $9~\mu$s, $34~\mu$s \\
-$\sigma$ & $16~\mu$s \\
-$T_{\text{PHY}}$ & $32~\mu$s \\
-MAC header length (MH) & $288$ bits \\
-Service Field length (SF) & $16$ bits \\
-MPDU Delimiter length (MD) & $32$ bits \\
-Block ACK length ($L_{\text{BACK}}$) & $256$ bits \\
-Data Length $L_{\text{DATA}}$ & 12000 bits \\
-Tail Bits (TB) & $6$ bits \\
-Data Bits Per Symbol $L_{\text{DBPS}}$ & $260$ bits/OFDM symbol \\
-OFDM Symbol Duration $T_{\text{s}}$ & $4~\mu$s \\
+% SIFS, DIFS & $9~\mu$s, $34~\mu$s \\
+% $\sigma$ & $16~\mu$s \\
+% $T_{\text{PHY}}$ & $32~\mu$s \\
+% MAC header length (MH) & $288$ bits \\
+% Service Field length (SF) & $16$ bits \\
+% MPDU Delimiter length (MD) & $32$ bits \\
+% Block ACK length ($L_{\text{BACK}}$) & $256$ bits \\
+Data Packet Length & 12000 bits \\
+Data Rate & $65$ Mbps\\
+% Tail Bits (TB) & $6$ bits \\
+% Data Bits Per Symbol $L_{\text{DBPS}}$ & $260$ bits/OFDM symbol \\
+% OFDM Symbol Duration $T_{\text{s}}$ & $4~\mu$s \\
 \hline
 \end{tabular}
 
@@ -384,56 +379,51 @@ In Figure \ref{Fig:throughput}, the throughput of all four schemes is plotted. A
 
 \begin{figure}[ht!!!!!!!!]
 \centering
-\epsfig{file=throughput-combined.eps,scale=0.45,angle=270}\label{Fig:throughput}
-\caption{Throughput}
+\epsfig{file=throughput-combined.eps,scale=0.45,angle=270}
+\caption{Throughput}\label{Fig:throughput}
 \end{figure}
 
 \begin{figure}[ht!!!!!!!!]
 \centering
-\epsfig{file=fairness-combined.eps,scale=0.45,angle=270}\label{Fig:fairness}
-\caption{Fairness}
-\end{figure}
-
-
-\begin{figure}[ht!!!!!!!!]
-\centering
-\epsfig{file=avgCollisions-6sta.eps,scale=0.45,angle=270}\label{Fig:Pc_6}
-\caption{Cumulative fraction of slots spent in collision for $N=6$ nodes}
+\epsfig{file=fairness-combined.eps,scale=0.45,angle=270}
+\caption{Fairness}\label{Fig:fairness}
 \end{figure}
 
 
 \begin{figure}[ht!!!!!!!!]
 \centering
-\epsfig{file=avgCollisions-12sta.eps,scale=0.45,angle=270}\label{Fig:Pc_12}
-\caption{Cumulative fraction of slots spent in collision for $N=12$ nodes}
+\epsfig{file=avgCollisions-6sta.eps,scale=0.45,angle=270}
+\caption{Cumulative fraction of slots spent in collision for $N=6$ nodes}\label{Fig:Pc_6}
+\end{figure}
+
+
+\begin{figure}[ht!!!!!!!!]
+\centering
+\epsfig{file=avgCollisions-12sta.eps,scale=0.45,angle=270}
+\caption{Cumulative fraction of slots spent in collision for $N=12$ nodes}\label{Fig:Pc_12}
 \end{figure}
 
 Clearly, reaching a collision-free operation is highly desirable, but not always possible in the basic CSMA/ECA. CSMA/ECA with Hysteresis exactly addresses this issue by simply not resetting the backoff stage after a successful transmission. In other words, the deterministic backoff value ($2^s \text{CW}_{\min}/2$) is chosen based on the backoff stage, $s$, in which the transmission was successful. This way, a larger number of contenders can reach a collision-free operation (Figure \ref{Fig:throughput}), but at the expense of a lower throughput for $N\leq 8$ compared to the basic CSMA/ECA. This is because if collision-free operation can be reached with a lower deterministic backoff value, there will be fewer empty slots, hence higher channel access efficiency. Furthermore, CSMA/ECA with hysteresis has a lower long-term fairness (Figure \ref{Fig:fairness}) compared to the basic CSMA/ECA or even the legacy CSMA/CA protocol, as once the network has reached the collision-free state, nodes that use a large backoff stage will have fewer transmission opportunities than others.
 
-To address the aforementioned fairness issue when hysteresis is used, CSMA/ECA with hysteresis and fair-share was introduced. It achieves greater throughput than CSMA/ECA with hysteresis only, while being fair for any number of contenders. This is achieved by using packet aggregation, transmitting $2^s$ packets per attempt. As observed in Figure \ref{Fig:throughput}, using aggregation we are not only able to provide a fair access, but also we are able to significantly increase the throughput. \Az{Note that the throughput increases with the number of nodes because for larger $N$, the collision-free operation is reached at higher backoff stages, which means more packets will be aggregated and transmitted at every attempt, thus improving the efficiency of the network in terms of channel use.}
+To address the aforementioned fairness issue when hysteresis is used, CSMA/ECA with hysteresis and fair-share was introduced. It achieves greater throughput than CSMA/ECA with hysteresis only, while being fair for any number of contenders. This is achieved by using packet aggregation, transmitting $2^s$ packets per attempt. As observed in Figure \ref{Fig:throughput}, using aggregation we are not only able to provide a fair access, but also we are able to significantly increase the throughput. {Note that the throughput increases with the number of nodes because for larger $N$, the collision-free operation is reached at higher backoff stages, which means more packets will be aggregated and transmitted at every attempt, thus improving the efficiency of the network in terms of channel use.}
 
-In Figures \ref{Fig:Pc_6} and \ref{Fig:Pc_12}, the temporal (in number of slots) evolution of the cumulative fraction of slots spent in collision is shown for $N = 6$ and $12$ nodes. As expected, for $N=6$, with all CSMA/ECA variants, collision-free operation is achieved (since $N<8$) and the probability that a slot contains a collision tends rapidly to zero. The collision-free operation is reached faster when hysteresis is used. When $N=12$, only the protocols using hysteresis reach collision-free operation. 
-
-
-
-
+In Figures \ref{Fig:Pc_6} and \ref{Fig:Pc_12}, the evolution of the cumulative fraction of slots spent in collision is shown for $N = 6$ and $12$ nodes. As expected, for $N=6$, with all CSMA/ECA variants, collision-free operation is achieved (since $N<8$) and the probability that a slot contains a collision tends rapidly to zero. The collision-free operation is reached faster when hysteresis is used. When $N=12$, only the protocols using hysteresis reach collision-free operation. 
 
 \section{Conclusion}
-The conclusion goes here.
+
+In this paper we have described a suitable replacement of the prevalent CSMA/CA protocol used in the IEEE 802.11 standard. Compared to the CSMA/CA protocol, the proposed protocol, called CSMA/ECA with Hysteresis and Fair-Share, offers performance boost in terms of throughput while preserving long-term fairness. In fact, under certain conditions, collision-free operation can be reached in a distributed and adaptive manner, even as the number of nodes in the network increases. Furthermore, this protocol is backward compatible, and can operate with nodes using the legacy protocol without degrading the performance of the legacy nodes. All these properties make the proposed protocol a good candidate to replace CSMA/CA in the upcoming revisions of the standard.
+
+% In this paper the CSMA/ECA protocol with Hysteresis and Fair Share has been proposed as a plausible replacement of the CSMA/CA protocol for IEEE 802.11 wireless local area networks. The protocol can achieve collision-free operation, which results in significant performance gains, with no additional complexity in term of implementation. In those circumstances where collision-free operation may not be maintained (e.g., due to noise), CSMA/ECA still achieves better throughput compared to CSMA/CA. Furthermore, it is backward compatible with the default CSMA/CA protocol. The Hysteresis property allows the CSMA/ECA protocol to adapt to a variable, and potentially large, number of contenders. However, it introduces long-term unfairness, as not all nodes in the network are able to transmit the same amount of data. To solve this issue, packet aggregation is used in CSMA/ECA protocol with Hysteresis and Fair Share, enabling nodes that access the channel less frequently to transmit more packets at each attempt. 
 
 
+% 
+% \Az{The coexistence and fairness of CSMA/ECA and CSMA/CA has been studied in [8]. The addition of hysteresis and fair-share may represent less transmissions and more packets per transmission, which do no interfere in any way with the execution of the legacy protocol.}
 
 
 % conference papers do not normally have an appendix
 
 
 % use section* for acknowledgement
-\section*{Acknowledgment}
-
-
-The authors would like to thank Boris for buying a fan, which can be useful to make fun.
-
-
 
 
 
