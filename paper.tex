@@ -419,6 +419,21 @@ To address the aforementioned fairness issue when hysteresis is used, CSMA/ECA w
 
 In Figures \ref{Fig:Pc_6} and \ref{Fig:Pc_12}, the evolution of the cumulative fraction of slots spent in collision is shown for $N = 6$ and $12$ nodes. As expected, for $N=6$, with all CSMA/ECA variants, collision-free operation is achieved (since $N<8$) and the probability that a slot contains a collision tends rapidly to zero. The collision-free operation is reached faster when hysteresis is used. When $N=12$, only the protocols using hysteresis reach collision-free operation. 
 
+\section{Future Work}
+
+In this workshop paper, we have evaluated the protocols under discussion in a very simple scenario using ideal channel, ideal clocks and saturation conditions.
+Furthermore, all the participating stations use the same protocol and have a single traffic  class.
+The presented metrics include only throughput and fairness, whereas delay, jitter and packet have been omitted.
+Another scenario of interest that we have not included is the situation in which the stations join the contention to transmit a file and then they leave.
+
+Our proposed protocol is based on CSMA/ECA, which works well in non-ideal conditions, and the results we are currently obtaining confirm that CSMA/ECA with hysteresis and fair-share inherits the flexibility and robustness of its predecessors.
+
+Regarding the implementation in real prototypes, it has been proven difficult until now, as the protocols are embedded in the networks interfaces and it is not possible to reprogram them.
+There are current advances in that direction \cite{tinnirello2012wmp} but it is still difficult to set the backoff to a deterministic value after successful transmissions in available hardware.
+
+Our intention is to try our protocols in a different technology, namely radio-frequency identification (RFID), where there is programmable hardware that can be used to implement arbitrary protocols.
+RFID uses also a contention protocol which are prone to collisions, and we believe it can be a first area in which we will be available to develop working prototypes to validate some of the ideas proposed in the present paper.
+
 \section{Conclusion}
 
 In this paper we have described a suitable replacement of the prevalent CSMA/CA protocol used in the IEEE 802.11 standard. Compared to the CSMA/CA protocol, the proposed protocol, called CSMA/ECA with Hysteresis and Fair-Share, offers performance boost in terms of throughput while preserving long-term fairness. In fact, under certain conditions, collision-free operation can be reached in a distributed and adaptive manner, even as the number of nodes in the network increases. Furthermore, this protocol is backward compatible, and can operate with nodes using the legacy protocol without degrading the performance of the legacy nodes. All these properties make the proposed protocol a good candidate to replace CSMA/CA in the upcoming revisions of the standard.
