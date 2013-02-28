@@ -79,7 +79,8 @@ clean:
 	rm -f ./figures/*.bak
 	rm -f ./*.aux
 	rm -f ./*.tex~
-	rm paper.bbl paper.blg paper.dvi paper.log paper.ps 
+	rm -f paper.bbl paper.blg paper.dvi paper.log paper.ps 
+	rm -f paper_diff.bbl paper_diff.blg paper_diff.dvi paper_diff.log paper_diff.ps 
 #
 # (re)Make .eps is .fig if newer
 #
