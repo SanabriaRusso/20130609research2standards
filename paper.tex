@@ -334,6 +334,20 @@ line $9$ of Algorithm \ref{alg:CSMA_ECA_hist} to increase the number of transmit
 \end{algorithm}
 
 An example of the operation of CSMA/ECA with hysteresis is presented in Fig. \ref{fig:csma_eca_different_backoff}.
+There are four stations in the example and the transmissions of those stations are represented as rounded boxes.
+The small numbers are the value of the backoff counter of the stations, that decrement in every slot boundary.
+
+The stations initially pick a random backoff. 
+Those stations with the same backoff value collide and choose a new backoff value.
+When all the stations have a different backoff value, no more collisions will occur.
+At this point the behaviour of the system is cyclic and deterministic.
+Note that the state of the system at the beginning of the cycle is the backoff counter of the four stations: 4, 9, 14 and 2.
+It is exactly the same state that the first slot of the next cycle.
+
+
+The length of the cycle (32 slots) is indicated by the arrows at the bottom of the figure.
+The stations that collide double their contention window, the deterministic backoff after successes and the number of transmitted packet in each transmission attempt.
+
 
 \begin{figure*}[!t]
 \centering
