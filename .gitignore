@@ -1,10 +1,10 @@
 *.aux
 *.bbl
 *.blg
-*diff*
 *~
 *.ps
 *.dvi
 *.log
 *.bak
 *.old
+paper_diff.tex

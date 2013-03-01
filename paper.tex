@@ -164,7 +164,7 @@ And thirdly, the number of packets transmitted in every transmission attempt is 
 Note that current standards already support the transmission of multiple packets in a single slot.
 
 Algorithm \ref{alg:CSMA_ECA} describes the basic CSMA/ECA in which a deterministic backoff is used after successful transmissions. The only change with respect to CSMA/CA is in fact in line $18$, where the random assignment of $b$ in CSMA/CA is replaced by a deterministic assignment in CSMA/ECA. Note that at this point the value of $s$ is zero, and therefore the assigned deterministic value is in fact $b = \text{CW}_{\min}/2$.
-This value is roughly equal to the expectation of the random backoff used in the same situation in CSMA/CA.
+This value is roughly equal to the expectation of the backoff chosen in line $18$ in Algorithm \ref{alg:CSMA_CA}.
 This particular choice guarantees fairness between new stations and legacy stations.
 
 Hysteresis is included in Algorithm \ref{alg:CSMA_ECA_hist}. Adding hysteresis is as simple as removing line $16$ from Algorithm \ref{alg:CSMA_ECA}. This means that the deterministic backoff value chosen after a successful transmission in this case is half the length of the contention window of the backoff stage in which the successful transmission has occurred. In fact, the backoff stage is reset only when the node has no packet to serve. This allows for the use of larger deterministic backoff values, which means that the network can reach a collision-free operation for a higher number of nodes. Since in the collision-free operation, some nodes may have higher backoff values than others, this protocol does not share the medium in a fair manner among nodes.
@@ -177,7 +177,7 @@ line $9$ of Algorithm \ref{alg:CSMA_ECA_hist} to increase the number of transmit
 \While{the device is on}
 {
   %\tcc{Initialize retransmission attempts.}
-  \colorbox{red}{$r \leftarrow 0$ ; $s \leftarrow 0$} \;
+  $r \leftarrow 0$ ; $s \leftarrow 0$ \;
   %\tcc{Initialize backoff counter.}
   $b \leftarrow \mathcal{U}[0,2^s\rm{CW}_{min}-1]$\;
   \While{there is a packet to transmit}{
@@ -188,7 +188,7 @@ line $9$ of Algorithm \ref{alg:CSMA_ECA_hist} to increase the number of transmit
         wait 1 slot \;
         $b \leftarrow b-1$ \;
       }
-      Attempt transmission of 1 packet \;
+      \colorbox{yellow}{Attempt transmission of 1 packet } \;
       \If{collision}{
         %\tcc{Random backoff.}
         $r \leftarrow r+1$ \;
@@ -197,10 +197,10 @@ line $9$ of Algorithm \ref{alg:CSMA_ECA_hist} to increase the number of transmit
       }
     }
     $r \leftarrow 0$ \;
-    $s \leftarrow 0$ \;
+    \colorbox{yellow}{$s \leftarrow 0$ } \;
 	 \eIf{success}{
       %\tcc{Random backoff.}
-      $b \leftarrow \mathcal{U}[0,2^{s}\rm{CW}_{min}-1]$\;
+      \colorbox{yellow}{$b \leftarrow \mathcal{U}[0,2^{s}\rm{CW}_{min}-1]$} \;
     }
     {
       Discard packet\;
@@ -227,7 +227,7 @@ line $9$ of Algorithm \ref{alg:CSMA_ECA_hist} to increase the number of transmit
         wait 1 slot \;
         $b \leftarrow b-1$ \;
       }
-      Attempt transmission of 1 packet \;
+      \colorbox{yellow}{Attempt transmission of 1 packet } \;
       \If{collision}
       {
         %\tcc{Random backoff.}
@@ -237,10 +237,10 @@ line $9$ of Algorithm \ref{alg:CSMA_ECA_hist} to increase the number of transmit
       }
     }
     $r \leftarrow 0$ \;
-    $s \leftarrow 0$ \;    
+    \colorbox{yellow}{$s \leftarrow 0$} \;    
     \eIf{success}{
       %\tcc{Random backoff.}
-      $b \leftarrow (2^{s}\rm{CW}_{min})/2$\;
+      \colorbox{yellow}{$b \leftarrow (2^{s}\rm{CW}_{min})/2$} \;
     }
     {
       Discard packet\;
@@ -267,7 +267,7 @@ line $9$ of Algorithm \ref{alg:CSMA_ECA_hist} to increase the number of transmit
         wait 1 slot \;
         $b \leftarrow b-1$ \;
       }
-      Attempt transmission of 1 packet \;
+      \colorbox{yellow}{Attempt transmission of 1 packet } \;
       \If{collision}{
         %\tcc{Random backoff.}
         $r \leftarrow r+1$ \;
@@ -279,7 +279,7 @@ line $9$ of Algorithm \ref{alg:CSMA_ECA_hist} to increase the number of transmit
     %$s \leftarrow 0$ \;
     \eIf{success}{
       %\tcc{Random backoff.}
-      $b \leftarrow (2^{s}\rm{CW}_{min})/2$\;
+      \colorbox{yellow}{$b \leftarrow (2^{s}\rm{CW}_{min})/2$} \;
     }
     {
       Discard packet\;
@@ -307,7 +307,7 @@ line $9$ of Algorithm \ref{alg:CSMA_ECA_hist} to increase the number of transmit
         wait 1 slot \;
         $b \leftarrow b-1$ \;
       }
-      Attempt transmission of $2^s$ packets \;
+      \colorbox{yellow}{Attempt transmission of $2^s$ packets } \;
       \If{collision}{
         %\tcc{Random backoff.}
         $r \leftarrow r+1$ \;
@@ -319,7 +319,7 @@ line $9$ of Algorithm \ref{alg:CSMA_ECA_hist} to increase the number of transmit
     %$s \leftarrow 0$ \;
     \eIf{success}{
       %\tcc{Random backoff.}
-      $b \leftarrow (2^{s}\rm{CW}_{min})/2$\;
+      \colorbox{yellow}{$b \leftarrow (2^{s}\rm{CW}_{min})/2$} \;
     }
     {
       Discard packet\;
@@ -333,6 +333,14 @@ line $9$ of Algorithm \ref{alg:CSMA_ECA_hist} to increase the number of transmit
 \label{alg:CSMA_ECA_hist_fair}
 \end{algorithm}
 
+An example of the operation of CSMA/ECA with hysteresis is presented in Fig. \ref{fig:csma_eca_different_backoff}.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=7.0in]{figures/csma_eca_different_backoff}
+\caption{Schedule length distributed adaption example. All the stations transmit the same number of packets in each cycle, despite using different schedule lengths.}
+\label{fig:csma_eca_different_backoff}
+\end{figure*}
 
 \section{Performance Evaluation} \label{sec:perf_eval}
 
@@ -415,7 +423,8 @@ In Figure \ref{Fig:throughput}, the throughput of all four schemes is plotted. A
 
 Clearly, reaching a collision-free operation is highly desirable, but not always possible in the basic CSMA/ECA. CSMA/ECA with Hysteresis exactly addresses this issue by simply not resetting the backoff stage after a successful transmission. In other words, the deterministic backoff value ($2^s \text{CW}_{\min}/2$) is chosen based on the backoff stage, $s$, in which the transmission was successful. This way, a larger number of contenders can reach a collision-free operation (Figure \ref{Fig:throughput}), but at the expense of a lower throughput for $N\leq 8$ compared to the basic CSMA/ECA. This is because if collision-free operation can be reached with a lower deterministic backoff value, there will be fewer empty slots, hence higher channel access efficiency. Furthermore, CSMA/ECA with hysteresis has a lower long-term fairness (Figure \ref{Fig:fairness}) compared to the basic CSMA/ECA or even the legacy CSMA/CA protocol, as once the network has reached the collision-free state, nodes that use a large backoff stage will have fewer transmission opportunities than others.
 
-To address the aforementioned fairness issue when hysteresis is used, CSMA/ECA with hysteresis and fair-share was introduced. It achieves greater throughput than CSMA/ECA with hysteresis only, while being fair for any number of contenders. This is achieved by using packet aggregation, transmitting $2^s$ packets per attempt. As observed in Figure \ref{Fig:throughput}, using aggregation we are not only able to provide a fair access, but also we are able to significantly increase the throughput. {Note that the throughput increases with the number of nodes because for larger $N$, the collision-free operation is reached at higher backoff stages, which means more packets will be aggregated and transmitted at every attempt, thus improving the efficiency of the network in terms of channel use.}
+To address the aforementioned fairness issue when hysteresis is used, CSMA/ECA with hysteresis and fair-share was introduced. It achieves greater throughput than CSMA/ECA with hysteresis only, while being fair for any number of contenders. This is achieved by using packet aggregation, transmitting $2^s$ packets per attempt. As observed in Figure \ref{Fig:throughput}, using aggregation we are not only able to provide a fair access, but also we are able to significantly increase the throughput. {Note that the throughput increases with the number of nodes because for larger $N$, the collision-free operation is reached at higher backoff stages, which means more packets will be aggregated and transmitted at every attempt, thus improving the efficiency of the network.}
+
 
 In Figures \ref{Fig:Pc_6} and \ref{Fig:Pc_12}, the evolution of the cumulative fraction of slots spent in collision is shown for $N = 6$ and $12$ nodes. As expected, for $N=6$, with all CSMA/ECA variants, collision-free operation is achieved (since $N<8$) and the probability that a slot contains a collision tends rapidly to zero. The collision-free operation is reached faster when hysteresis is used. When $N=12$, only the protocols using hysteresis reach collision-free operation. 
 
@@ -429,11 +438,11 @@ Another scenario of interest that we have not included is the situation in which
 
 Our proposed protocol is based on CSMA/ECA, which works well in non-ideal conditions, and the results we are currently obtaining confirm that CSMA/ECA with hysteresis and fair-share inherits the flexibility and robustness of its predecessors.
 
-Regarding the implementation in real prototypes, it has been proven difficult until now, as the protocols are embedded in the networks interfaces and it is not possible to reprogram them.
+Regarding the implementation in real prototypes, it has been proven difficult until now, as the IEEE 802.11 protocols are embedded in the network interfaces and it is not possible to reprogram them.
 There are current advances in that direction \cite{tinnirello2012wmp} but it is still difficult to set the backoff to a deterministic value after successful transmissions in available hardware.
 
 Our intention is to try our protocols in a different technology, namely radio-frequency identification (RFID), where there is programmable hardware that can be used to implement arbitrary protocols.
-RFID uses also a contention protocol which are prone to collisions, and we believe it can be a first area in which we will be available to develop working prototypes to validate some of the ideas proposed in the present paper.
+RFID uses also a contention protocol which is prone to collisions, and we believe it can be a first area in which we will be available to develop working prototypes to validate some of the ideas proposed in the present paper.
 
 \section{Conclusion}
 
