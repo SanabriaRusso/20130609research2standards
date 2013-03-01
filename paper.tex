@@ -111,7 +111,7 @@ In the second group of works, exemplified here by \cite{cali2000dti,lopez-toledo
 Furthermore, there is a fundamental trade-off between the stability and the speed of reaction of the estimation.
 
 When it comes to backward compatibility, neither of the aforementioned solutions are able to fairly share the medium with legacy devices.
-In fact, these proposals are, generally speaking, less aggressive than the currently implemented CSMA/CA protocol. Consequently, in a hypothetical mixed network in which the new and old protocols coexist, the new stations would receive a smaller share of the available bandwidth.
+In fact, these proposals are, generally speaking, less aggressive than the currently implemented CSMA/CA protocol. Consequently, in a hypothetical mixed network in which the new and old protocols coexisted, the new stations would receive a smaller share of the available bandwidth.
 
 A more important limitation of the two approaches exposed so far is that the throughput is bounded by that of CSMA/CA with optimal configuration \cite{cali2000dti,bianchi2000pai}.
 
@@ -125,7 +125,7 @@ The performance of CSMA/ECA in the presence of channel errors is considered in \
 Other aspects such as coexistence with legacy stations and performance in the presence of new entrants have also been covered in \cite{he2009srb, barcelo2010fcc, fang2011dlm}.
 Results for the impact of slot drift (non-ideal clocks) in protocols similar to CSMA/ECA can be found in \cite{gong2012asd}.
 In the present workshop paper, we focus on a simple greenfield scenario with a single traffic class, ideal channel, ideal clocks, and saturation conditions.
-We are currently evaluating more complex scenarios that we outline in Section \ref{sec:}
+We are currently evaluating more complex scenarios that we outline in Section \ref{sec:future_work}
 
 Even though initial research efforts where focused on the WLAN collision problem, more recent works try to extend the idea to multi-hop networks.
 In \cite{hui2011epp}, the multi-hop slotted case is explored.
@@ -137,7 +137,7 @@ In all the previous work on collision-free operation in WLANs mentioned so far, 
 If this value is exceeded, it is no longer possible to achieve collision-free operation.
 A first solution to solve this problem is presented in \cite{barcelo2011tcf}, but it requires the presence of a central entity (typically the access point) that instructs the other nodes to adjust the value of their deterministic backoff.
 
-In the current paper, we present a completely distributed solution, called {\it backoff stage hysteresis} or simply hysteresis, which is a simple modification to CSMA/ECA to accommodate a large number of contenders in an adaptive and distributed fashion. Hysteresis by itself, comes at the expense of reduction in long-term fairness. Using hysteresis together with what we will refer to as {\it fare-share} allows for reaching collision-free operation with self-adaptation to a variable, and potentially large, number of contenders while preserving fairness. The concept of fair-share was first introduced in \cite{fang2011dlm}. We will furthermore detail pseudo-code algorithms for three different types of CSMA/ECA (basic, with hysteresis, and with both hysteresis and fair-share) and highlight how they can be easily implemented using simple modifications to the currently-used CSMA/CA algorithm. We will then present some performance evaluation, quantifying the performance gain that these three types of CSMA/ECA can achieve, both in terms of throughput and fairness. 
+In the current paper, we present a completely distributed solution, called {\it backoff stage hysteresis} or simply hysteresis, which is a simple modification to CSMA/ECA to accommodate a large number of contenders in an adaptive and distributed fashion. Hysteresis by itself, comes at the expense of reduction in long-term fairness. Using hysteresis together with what we will refer to as {\it fair-share} allows for reaching collision-free operation with self-adaptation to a variable, and potentially large, number of contenders while preserving fairness. The concept of fair-share was first introduced in \cite{fang2011dlm}. We will furthermore detail pseudo-code algorithms for three different types of CSMA/ECA (basic, with hysteresis, and with both hysteresis and fair-share) and highlight how they can be easily implemented using simple modifications to the currently-used CSMA/CA algorithm. We will then present some performance evaluation, quantifying the performance gain that these three types of CSMA/ECA can achieve, both in terms of throughput and fairness. 
 
 Note that the coexistence and fairness of basic CSMA/ECA and CSMA/CA has been studied in \cite{barcelo2010fcc}. 
 The addition of hysteresis and fair-share to the basic CSMA/ECA may represent less frequent transmissions and more packets per transmission
@@ -177,7 +177,7 @@ line $9$ of Algorithm \ref{alg:CSMA_ECA_hist} to increase the number of transmit
 \While{the device is on}
 {
   %\tcc{Initialize retransmission attempts.}
-  $r \leftarrow 0$ ; $s \leftarrow 0$ \;
+  \colorbox{red}{$r \leftarrow 0$ ; $s \leftarrow 0$} \;
   %\tcc{Initialize backoff counter.}
   $b \leftarrow \mathcal{U}[0,2^s\rm{CW}_{min}-1]$\;
   \While{there is a packet to transmit}{
@@ -420,6 +420,7 @@ To address the aforementioned fairness issue when hysteresis is used, CSMA/ECA w
 In Figures \ref{Fig:Pc_6} and \ref{Fig:Pc_12}, the evolution of the cumulative fraction of slots spent in collision is shown for $N = 6$ and $12$ nodes. As expected, for $N=6$, with all CSMA/ECA variants, collision-free operation is achieved (since $N<8$) and the probability that a slot contains a collision tends rapidly to zero. The collision-free operation is reached faster when hysteresis is used. When $N=12$, only the protocols using hysteresis reach collision-free operation. 
 
 \section{Future Work}
+\label{sec:future_work}
 
 In this workshop paper, we have evaluated the protocols under discussion in a very simple scenario using ideal channel, ideal clocks and saturation conditions.
 Furthermore, all the participating stations use the same protocol and have a single traffic  class.
